@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main"
+        android:id="@+id/rlt_top"
+        >
+        
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_back"
+            android:scaleType="centerInside"
+            android:src="@drawable/titlebar_back"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text"
+            android:textColor="@color/white"
+            android:text="新增事项"
+            />
+        
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlt_top"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="名称"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text"
+                android:gravity="center_vertical|right"
+                android:paddingRight="15dp"
+                android:id="@+id/tv_name"
+                />
+            
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:id="@+id/edt_name"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_toRightOf="@+id/tv_name"
+                android:background="@null"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:hint="点击输入事件名称"
+                android:textColorHint="@color/text"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text"
+                />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="闹钟提醒"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text"
+                android:gravity="center_vertical|right"
+                android:paddingRight="15dp"
+                android:id="@+id/tv_alarm"
+                android:layout_below="@+id/tv_name"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:id="@+id/img_alarm"
+                android:scaleType="centerInside"
+                android:src="@drawable/button_open"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edt_name"
+                android:layout_marginRight="20dp"
+                />
+
+            <me.schedule.widget.TimeManageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/llt_time"
+                android:layout_below="@+id/tv_alarm"
+                >
+
+            </me.schedule.widget.TimeManageView>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="备注"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text"
+                android:gravity="center_vertical|right"
+                android:paddingRight="15dp"
+                android:id="@+id/tv_remark"
+                android:layout_below="@+id/llt_time"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:id="@+id/edt_remark"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_toRightOf="@+id/tv_remark"
+                android:background="@null"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:hint="点击输入事件备注"
+                android:textColorHint="@color/text"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text"
+                android:layout_below="@+id/llt_time"
+                />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:text="详情"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text"
+                android:gravity="center_vertical|right"
+                android:paddingRight="15dp"
+                android:id="@+id/tv_detail"
+                android:layout_below="@+id/tv_remark"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:id="@+id/edt_detail"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_toRightOf="@+id/tv_detail"
+                android:background="@null"
+                android:ellipsize="end"
+                android:hint="点击输入事件详情"
+                android:textColorHint="@color/text"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text"
+                android:layout_below="@+id/tv_remark"
+                />
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/col_c0"
+                android:layout_below="@+id/edt_name"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/col_c0"
+                android:layout_below="@+id/img_alarm"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/col_c0"
+                android:layout_below="@+id/tv_remark"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+    
+</RelativeLayout>

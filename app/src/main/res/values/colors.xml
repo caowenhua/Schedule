@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white" >#f9f9f9</color>
+    <color name="main" >#2b3c50</color>
+    <color name="main_deep" >#263238</color>
+    <color name="main_shadow" >#485763</color>
+    <color name="background" >#e8eaf6</color>
+    <color name="blue" >#00bcd4</color>
+    <color name="blue_deep" >#0277bd</color>
+    <color name="blue_shadow" >#18ffff</color>
+    <color name="text" >#9e9e9e</color>
+    <color name="text_deep" >#616161</color>
+    <color name="text_shadow" >#bdbdbd</color>
+    <color name="green" >#26a69a</color>
+    <color name="green_deep" >#004d40</color>
+    <color name="green_shadow" >#00bfa5</color>
+    <color name="red" >#e84e40</color>
+    <color name="red_deep" >#dd191d</color>
+    <color name="red_shadow" >#f36c60</color>
+    <color name="yellow" >#ffc107</color>
+    <color name="yellow_deep" >#f9a825</color>
+    <color name="yellow_shadow" >#e6ee9c</color>
+    <color name="orange" >#f57c00</color>
+    <color name="orange_deep" >#e64a19</color>
+    <color name="orange_shadow" >#ffa726</color>
+    <color name="col_e5">#e5e5e5</color>
+    <color name="col_c0">#c0c0c0</color>
+    <color name="gray" >#37474f</color>
+    <color name="gray_deep" >#263238</color>
+    <color name="gray_shadow" >#546e7a</color>
+
+</resources>
