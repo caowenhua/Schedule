@@ -26,19 +26,28 @@
             android:textColor="@color/white"
             android:text="新增事项"
             />
-        
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_tick"
+            android:scaleType="centerInside"
+            android:src="@drawable/titlebar_tick"
+            android:layout_alignParentRight="true"
+            />
+
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rlt_top"
+        android:background="@color/white"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             >
 
             <TextView
@@ -102,6 +111,13 @@
 
             </me.schedule.widget.TimeManageView>
 
+            <me.schedule.widget.MatterEventView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llt_time"
+                android:id="@+id/rlt_matter"
+                />
+
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="45dp"
@@ -111,7 +127,7 @@
                 android:gravity="center_vertical|right"
                 android:paddingRight="15dp"
                 android:id="@+id/tv_remark"
-                android:layout_below="@+id/llt_time"
+                android:layout_below="@+id/rlt_matter"
                 />
 
             <EditText
@@ -129,7 +145,7 @@
                 android:textColorHint="@color/text"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/text"
-                android:layout_below="@+id/llt_time"
+                android:layout_below="@+id/rlt_matter"
                 />
 
             <TextView

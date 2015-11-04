@@ -16,7 +16,7 @@
         android:theme="@android:style/Theme.NoTitleBar" >
 
         <activity
-            android:name=".activity.ScheduleActivity"
+            android:name=".activity.AddScheduleActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
