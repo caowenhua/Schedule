@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="@dimen/text"
+            android:textSize="@dimen/text_xl"
             android:textColor="@color/white"
             android:text="新增事项"
             />
@@ -162,11 +162,11 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/edt_detail"
-                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:paddingTop="13dp"
                 android:layout_toRightOf="@+id/tv_detail"
                 android:background="@null"
                 android:ellipsize="end"

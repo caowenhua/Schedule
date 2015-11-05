@@ -8,23 +8,19 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import butterknife.OnClick;
 import me.schedule.R;
+import me.schedule.listener.OnTimeClickListener;
 
 /**
  * Created by caowenhua on 2015/11/4.
  */
-public class ItemAddTime extends RelativeLayout {
-
-    @Bind(R.id.img_del)
-    ImageView imgDel;
-    @Bind(R.id.tv_day)
-    TextView tvDay;
-    @Bind(R.id.tv_time)
-    TextView tvTime;
+public class ItemAddTime extends RelativeLayout implements View.OnClickListener {
+    private ImageView imgDel;
+    private TextView tvDay;
+    private TextView tvTime;
 
     private int id;
+    private OnTimeClickListener onTimeClickListener;
 
     public ItemAddTime(Context context, int id) {
         super(context);
@@ -44,22 +40,50 @@ public class ItemAddTime extends RelativeLayout {
 
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.item_add_time, this);
+        assignViews();
     }
 
-    @OnClick({R.id.img_del, R.id.tv_day, R.id.tv_time})
+    private void assignViews() {
+        imgDel = (ImageView) findViewById(R.id.img_del);
+        tvDay = (TextView) findViewById(R.id.tv_day);
+        tvTime = (TextView) findViewById(R.id.tv_time);
+
+        imgDel.setOnClickListener(this);
+        tvTime.setOnClickListener(this);
+        tvDay.setOnClickListener(this);
+    }
+
+    public void setData(String day, String time) {
+        tvDay.setText(day);
+        tvTime.setText(time);
+    }
+
+    public void setOnTimeClickListener(OnTimeClickListener onTimeClickListener) {
+        this.onTimeClickListener = onTimeClickListener;
+    }
+
+    public int getItemId(){
+        return id;
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_del:
+                if(onTimeClickListener != null){
+                    onTimeClickListener.onDelClick(id);
+                }
                 break;
             case R.id.tv_day:
+                if(onTimeClickListener != null){
+                    onTimeClickListener.onDayClick(id);
+                }
                 break;
             case R.id.tv_time:
+                if(onTimeClickListener != null){
+                    onTimeClickListener.onTimeClick(id);
+                }
                 break;
         }
-    }
-
-    public void setData(String day, String time){
-        tvDay.setText(day);
-        tvTime.setText(time);
     }
 }

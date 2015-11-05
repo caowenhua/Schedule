@@ -8,7 +8,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.schedule.R;
+import me.schedule.activity.AddScheduleActivity;
 import me.schedule.util.ExplosionUtils;
 
 /**
@@ -18,6 +22,9 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
 
     private LinearLayout llt;
     private int count;
+    private List<ItemAddTime> itemList;
+
+    private AddScheduleActivity activity;
 
     public TimeManageView(Context context) {
         super(context);
@@ -35,6 +42,8 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
     }
 
     private void init(){
+        activity = (AddScheduleActivity) getContext();
+        setPadding(ExplosionUtils.dp2Px(20), 0, 0, 0);
         llt = new LinearLayout(getContext());
         llt.setOrientation(HORIZONTAL);
         ImageView imageView = new ImageView(getContext());
@@ -53,7 +62,6 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
 //        tvAdd.setCompoundDrawablePadding(ExplosionUtils.dp2Px(20));
 //        tvAdd.setCompoundDrawablesWithIntrinsicBounds(R.drawable.add, 0, 0, 0);
         tvAdd.setText("点击增加事件时间");
-        tvAdd.setOnClickListener(this);
         tvAdd.setTextColor(getResources().getColor(R.color.text_deep));
         tvAdd.setGravity(Gravity.CENTER_VERTICAL);
         tvAdd.setPadding(ExplosionUtils.dp2Px(20), ExplosionUtils.dp2Px(10), 0, ExplosionUtils.dp2Px(10));
@@ -63,11 +71,29 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
         addView(llt);
         llt.setOnClickListener(this);
 
-        count = 0;
+        count = 1;
+        itemList = new ArrayList<>();
     }
 
     @Override
     public void onClick(View v) {
+        if (v == llt){
+            ItemAddTime item = new ItemAddTime(getContext(), count);
+            itemList.add(item);
+            addView(item);
+            item.setData("day" + count, "time" + count);
+            count++;
+            item.setOnTimeClickListener(activity);
+        }
+    }
 
+
+    public void delItem(int id) {
+        for (int i = 0; i < itemList.size(); i++) {
+            if(itemList.get(i).getItemId() == id){
+                removeView(itemList.get(i));
+                itemList.remove(i);
+            }
+        }
     }
 }
