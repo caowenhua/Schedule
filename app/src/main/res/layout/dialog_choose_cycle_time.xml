@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_f9_con"
+    android:paddingBottom="20dp"
+    android:layout_margin="5dp"
+    >
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/x_main"
+        android:id="@+id/img_x"
+        android:layout_alignParentRight="true"
+        />
+
+    <LinearLayout
+        android:id="@+id/llt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/img_x"
+        >
+
+        <Button
+            android:id="@+id/btn_1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="一"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="二"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="三"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="四"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="五"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_a1_circle"
+            android:text="六"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_a1_circle"
+            android:text="日"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <me.schedule.widget.wheel.WheelView
+        android:layout_width="110dp"
+        android:layout_height="200dp"
+        android:id="@+id/wheel_min"
+        android:layout_below="@+id/llt"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        />
+
+    <me.schedule.widget.wheel.WheelView
+        android:layout_width="110dp"
+        android:layout_height="200dp"
+        android:id="@+id/wheel_hour"
+        android:layout_below="@+id/llt"
+        android:layout_toLeftOf="@+id/wheel_min"
+        android:layout_marginTop="10dp"
+        />
+
+    <me.schedule.widget.wheel.WheelView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/wheel_cycle"
+        android:layout_below="@+id/llt"
+        android:layout_toLeftOf="@+id/wheel_hour"
+        android:layout_marginTop="10dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/selector_bg_main_con"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text"
+        android:id="@+id/btn_commit"
+        android:layout_below="@+id/wheel_min"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+</RelativeLayout>

@@ -7,16 +7,16 @@ import android.view.View;
 /**
  * Created by cawoenhua on 2015/11/4.
  */
-public class DayScheduleView extends View {
-    public DayScheduleView(Context context) {
+public class WeekScheduleView extends View {
+    public WeekScheduleView(Context context) {
         super(context);
     }
 
-    public DayScheduleView(Context context, AttributeSet attrs) {
+    public WeekScheduleView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public DayScheduleView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public WeekScheduleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 }

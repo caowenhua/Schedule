@@ -8,11 +8,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import butterknife.ButterKnife;
 import me.schedule.R;
 import me.schedule.listener.OnTimeClickListener;
 import me.schedule.widget.MatterEventView;
 import me.schedule.widget.TimeManageView;
+import me.schedule.widget.dialog.ChooseTimeDialog;
 
 /**
  * Created by caowenhua on 2015/11/4.
@@ -39,7 +39,6 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
-        ButterKnife.bind(this);
         assignViews();
 
         isAlarm = true;
@@ -60,6 +59,9 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
         edtRemark = (EditText) findViewById(R.id.edt_remark);
         tvDetail = (TextView) findViewById(R.id.tv_detail);
         edtDetail = (EditText) findViewById(R.id.edt_detail);
+
+        imgBack.setOnClickListener(this);
+        imgTick.setOnClickListener(this);
     }
 
     private void refreshSwitchButton(){
@@ -78,6 +80,7 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
                 finish();
                 break;
             case R.id.img_tick:
+                ChooseTimeDialog dialog = new ChooseTimeDialog(this);
                 break;
             case R.id.img_alarm:
                 isAlarm = !isAlarm;

@@ -3,18 +3,18 @@ package me.schedule.util;
 
 import android.content.Context;
 
-public class ScreenTools {
+public class ScreenUtils {
 
-    private static ScreenTools mScreenTools;
+    private static ScreenUtils mScreenTools;
     private Context context;
 
-    private ScreenTools(Context context) {
+    private ScreenUtils(Context context) {
         this.context = context.getApplicationContext();
     }
 
-    public static ScreenTools instance(Context context) {
+    public static ScreenUtils instance(Context context) {
         if (mScreenTools == null)
-            mScreenTools = new ScreenTools(context);
+            mScreenTools = new ScreenUtils(context);
         return mScreenTools;
     }
 
