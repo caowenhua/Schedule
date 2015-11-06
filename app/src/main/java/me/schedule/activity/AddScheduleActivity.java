@@ -12,7 +12,7 @@ import me.schedule.R;
 import me.schedule.listener.OnTimeClickListener;
 import me.schedule.widget.MatterEventView;
 import me.schedule.widget.TimeManageView;
-import me.schedule.widget.dialog.ChooseTimeDialog;
+import me.schedule.widget.dialog.ChooseCycleTimeDialog;
 
 /**
  * Created by caowenhua on 2015/11/4.
@@ -80,7 +80,7 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
                 finish();
                 break;
             case R.id.img_tick:
-                ChooseTimeDialog dialog = new ChooseTimeDialog(this);
+                ChooseCycleTimeDialog dialog = new ChooseCycleTimeDialog(this);
                 break;
             case R.id.img_alarm:
                 isAlarm = !isAlarm;
