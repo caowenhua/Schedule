@@ -92,44 +92,48 @@
 
     <me.schedule.widget.wheel.WheelView
         android:layout_width="110dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:id="@+id/wheel_min"
         android:layout_below="@+id/llt"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
         />
 
     <me.schedule.widget.wheel.WheelView
         android:layout_width="110dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:id="@+id/wheel_hour"
         android:layout_below="@+id/llt"
         android:layout_toLeftOf="@+id/wheel_min"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_alignParentLeft="true"
         />
+    <!--
+        <me.schedule.widget.wheel.WheelView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/wheel_cycle"
+            android:layout_below="@+id/llt"
+            android:layout_toLeftOf="@+id/wheel_hour"
+            android:layout_marginTop="10dp"
+            />
+            -->
 
-    <me.schedule.widget.wheel.WheelView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/wheel_cycle"
-        android:layout_below="@+id/llt"
-        android:layout_toLeftOf="@+id/wheel_hour"
-        android:layout_marginTop="10dp"
-        />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@drawable/selector_bg_main_con"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text"
+            android:id="@+id/btn_commit"
+            android:layout_below="@+id/wheel_min"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@drawable/selector_bg_main_con"
-        android:text="确定"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text"
-        android:id="@+id/btn_commit"
-        android:layout_below="@+id/wheel_min"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
-
-</RelativeLayout>
+    </RelativeLayout>

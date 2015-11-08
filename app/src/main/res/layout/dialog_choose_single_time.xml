@@ -21,6 +21,7 @@
         android:layout_below="@+id/img_x"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
+        android:id="@+id/llt"
         >
 
         <me.schedule.widget.wheel.WheelView
@@ -60,5 +61,19 @@
 
     </LinearLayout>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/selector_bg_main_con"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text"
+        android:id="@+id/btn_commit"
+        android:layout_below="@+id/llt"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
 
 </RelativeLayout>
