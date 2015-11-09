@@ -16,7 +16,7 @@ import me.schedule.widget.wheel.WheelView;
 /**
  * Created by caowenhua on 2015/11/5.
  */
-public class ChooseCycleTimeDialog extends BaseDialog implements View.OnClickListener {
+public class ChooseCycleTimeDialog extends BaseDialog implements View.OnClickListener{
 
     private WheelView wheel_hour;
 //    private WheelView wheel_cycle;
@@ -70,6 +70,7 @@ public class ChooseCycleTimeDialog extends BaseDialog implements View.OnClickLis
         btn_5.setOnClickListener(this);
         btn_6.setOnClickListener(this);
         btn_7.setOnClickListener(this);
+
     }
 
     @Override
@@ -131,4 +132,6 @@ public class ChooseCycleTimeDialog extends BaseDialog implements View.OnClickLis
                 break;
         }
     }
+
+
 }

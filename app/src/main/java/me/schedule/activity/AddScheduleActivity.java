@@ -12,7 +12,8 @@ import me.schedule.R;
 import me.schedule.listener.OnTimeClickListener;
 import me.schedule.widget.MatterEventView;
 import me.schedule.widget.TimeManageView;
-import me.schedule.widget.dialog.ChooseCycleTimeDialog;
+import me.schedule.widget.dialog.ChooseSingleTimeDialog;
+import me.schedule.widget.dialog.ChooseTimeDialog;
 
 /**
  * Created by caowenhua on 2015/11/4.
@@ -77,10 +78,11 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_back:
-                finish();
+//                finish();
+                ChooseSingleTimeDialog chooseSingleTimeDialog = new ChooseSingleTimeDialog(this);
                 break;
             case R.id.img_tick:
-                ChooseCycleTimeDialog dialog = new ChooseCycleTimeDialog(this);
+                ChooseTimeDialog dialog = new ChooseTimeDialog(this);
                 break;
             case R.id.img_alarm:
                 isAlarm = !isAlarm;

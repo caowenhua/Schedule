@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_ff_con"
+    android:paddingBottom="20dp"
+    android:layout_margin="5dp"
+    >
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/x_main"
+        android:id="@+id/img_x"
+        android:layout_alignParentRight="true"
+        />
+
+    <RelativeLayout
+        android:id="@+id/llt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/img_x"
+        >
+
+        <Button
+            android:id="@+id/btn_1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="一"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="二"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/btn_1"/>
+
+        <Button
+            android:id="@+id/btn_3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="三"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/btn_2" />
+
+        <Button
+            android:id="@+id/btn_4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="四"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/btn_3" />
+
+        <Button
+            android:id="@+id/btn_5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_main_circle"
+            android:text="五"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/btn_4" />
+
+        <Button
+            android:id="@+id/btn_6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_a1_circle"
+            android:text="六"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/btn_5"/>
+
+        <Button
+            android:id="@+id/btn_7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_a1_circle"
+            android:text="日"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/btn_6" />
+
+        <View
+            android:layout_width="294dp"
+            android:layout_height="42dp"
+            android:background="#90000000"
+            android:id="@+id/view_mask"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/llt2"
+        >
+
+        <me.schedule.widget.CheckBox
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/check_cycle"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:text="周期"
+            android:textSize="@dimen/text"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            />
+
+        <me.schedule.widget.CheckBox
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/check_single"
+            android:layout_marginLeft="50dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:text="单次"
+            android:textSize="@dimen/text"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llt2"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:id="@+id/llt3"
+        >
+
+        <me.schedule.widget.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="150dp"
+            android:id="@+id/wheel_year"
+            />
+
+        <me.schedule.widget.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:id="@+id/wheel_mouth"
+            />
+
+        <me.schedule.widget.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:id="@+id/wheel_day"
+            />
+
+        <me.schedule.widget.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:id="@+id/wheel_hour"
+            />
+
+        <me.schedule.widget.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:id="@+id/wheel_min"
+            />
+
+    </LinearLayout>
+
+    <!--
+    <me.schedule.widget.wheel.WheelView
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:id="@+id/wheel_min"
+        android:layout_below="@+id/llt"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        />
+
+    <me.schedule.widget.wheel.WheelView
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:id="@+id/wheel_hour"
+        android:layout_below="@+id/llt"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_alignParentLeft="true"
+        />
+
+    <me.schedule.widget.wheel.WheelView
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:id="@+id/wheel_year"
+        android:layout_below="@+id/wheel_hour"
+        android:layout_toLeftOf="@+id/wheel_mouth"
+        />
+
+    <me.schedule.widget.wheel.WheelView
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:id="@+id/wheel_mouth"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/wheel_hour"
+        />
+
+    <me.schedule.widget.wheel.WheelView
+        android:layout_width="110dp"
+        android:layout_height="150dp"
+        android:id="@+id/wheel_day"
+        android:layout_below="@+id/wheel_hour"
+        android:layout_toRightOf="@+id/wheel_mouth"
+        />
+    -->
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@drawable/selector_bg_main_con"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text"
+            android:id="@+id/btn_commit"
+            android:layout_below="@+id/llt3"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+    </RelativeLayout>

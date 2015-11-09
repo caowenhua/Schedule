@@ -3,6 +3,7 @@ package me.schedule.widget.wheel;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -117,6 +118,10 @@ public class WheelView extends View {
 	private List<OnWheelChangedListener> changingListeners = new LinkedList<OnWheelChangedListener>();
 	private List<OnWheelScrollListener> scrollingListeners = new LinkedList<OnWheelScrollListener>();
 
+	private boolean isAvailable;
+
+	private Paint colorPaint;
+
 	/**
 	 * Constructor
 	 */
@@ -152,6 +157,9 @@ public class WheelView extends View {
 		gestureDetector.setIsLongpressEnabled(false);
 
 		scroller = new Scroller(context);
+		isAvailable = true;
+		colorPaint = new Paint();
+		colorPaint.setColor(Color.parseColor("#90000000"));
 	}
 
 	/**
@@ -708,6 +716,10 @@ public class WheelView extends View {
 
 		drawCenterRect(canvas);
 		drawShadows(canvas);
+
+		if(!isAvailable){
+			canvas.drawRect(0, 0, getWidth(), getHeight(), colorPaint);
+		}
 	}
 
 	/**
@@ -879,6 +891,9 @@ public class WheelView extends View {
 		}
 	};
 
+	private SimpleOnGestureListener nullListener = new SimpleOnGestureListener(){
+	};
+
 	// Messages
 	private final int MESSAGE_SCROLL = 0;
 	private final int MESSAGE_JUSTIFY = 1;
@@ -999,8 +1014,23 @@ public class WheelView extends View {
 		startScrolling();
 	}
 
-	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		super.onSizeChanged(w, h, oldw, oldh);
+	public boolean isAvailable(){
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean isAvail){
+		if(isAvail == isAvailable){
+			return;
+		}
+		if(isAvail){
+			gestureDetector = new GestureDetector(getContext(), gestureListener);
+			gestureDetector.setIsLongpressEnabled(false);
+		}
+		else{
+			gestureDetector = new GestureDetector(getContext(), nullListener);
+			gestureDetector.setIsLongpressEnabled(false);
+		}
+		isAvailable = isAvail;
+		invalidate();
 	}
 }

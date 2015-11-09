@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import me.schedule.R;
 import me.schedule.base.BaseDialog;
+import me.schedule.util.ScreenUtils;
 import me.schedule.widget.wheel.IntegerWheelAdapter;
+import me.schedule.widget.wheel.OnWheelChangedListener;
 import me.schedule.widget.wheel.WheelView;
 
 /**
@@ -60,6 +63,72 @@ public class ChooseSingleTimeDialog extends BaseDialog implements View.OnClickLi
     @Override
     protected void initData() {
         days = new int[]{};
+
+        hourAdapter = new IntegerWheelAdapter(0, 23);
+        wheel_hour.setAdapter(hourAdapter);
+        wheel_hour.setLabel("时");
+        wheel_hour.setCyclic(true);
+        wheel_hour.setVisibleItems(5);
+        wheel_hour.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_hour.addChangingListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldValue, int newValue) {
+                Toast.makeText(getContext(), hourAdapter.getIndex(newValue) + "---", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        minAdapter = new IntegerWheelAdapter(0, 59);
+        wheel_min.setAdapter(minAdapter);
+        wheel_min.setLabel("分");
+        wheel_min.setCyclic(true);
+        wheel_min.setVisibleItems(5);
+        wheel_min.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_min.addChangingListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldValue, int newValue) {
+
+            }
+        });
+
+        yearAdapter = new IntegerWheelAdapter(2015, 2020);
+        wheel_year.setAdapter(yearAdapter);
+        wheel_year.setLabel("年");
+        wheel_year.setCyclic(true);
+        wheel_year.setVisibleItems(5);
+        wheel_year.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_year.addChangingListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldValue, int newValue) {
+
+            }
+        });
+
+        mouthAdapter = new IntegerWheelAdapter(1, 12);
+        wheel_mouth.setAdapter(mouthAdapter);
+        wheel_mouth.setLabel("月");
+        wheel_mouth.setCyclic(true);
+        wheel_mouth.setVisibleItems(5);
+        wheel_mouth.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_mouth.addChangingListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldValue, int newValue) {
+
+            }
+        });
+
+        dayAdapter = new IntegerWheelAdapter(0, 30);
+        wheel_day.setAdapter(dayAdapter);
+        wheel_day.setLabel("日");
+        wheel_day.setCyclic(true);
+        wheel_day.setVisibleItems(5);
+        wheel_day.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_day.addChangingListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldValue, int newValue) {
+
+            }
+        });
+
     }
 
     @Override
