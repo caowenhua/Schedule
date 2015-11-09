@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import me.schedule.R;
 import me.schedule.base.BaseDialog;
+import me.schedule.listener.OnTimeChooseListener;
 import me.schedule.util.ScreenUtils;
 import me.schedule.widget.CheckBox;
 import me.schedule.widget.wheel.DayWheelAdapter;
@@ -53,6 +54,8 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
     private int day;
     private int hour;
     private int min;
+
+    private OnTimeChooseListener onTimeChooseListener;
 
     public ChooseTimeDialog(Context context) {
         super(context, R.style.DialogUpDown);

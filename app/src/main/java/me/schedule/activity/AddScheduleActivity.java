@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import me.schedule.R;
 import me.schedule.listener.OnTimeClickListener;
+import me.schedule.listener.OnTimeCreateListener;
 import me.schedule.widget.MatterEventView;
 import me.schedule.widget.TimeManageView;
 import me.schedule.widget.dialog.ChooseSingleTimeDialog;
@@ -18,7 +19,8 @@ import me.schedule.widget.dialog.ChooseTimeDialog;
 /**
  * Created by caowenhua on 2015/11/4.
  */
-public class AddScheduleActivity extends Activity implements View.OnClickListener,OnTimeClickListener {
+public class AddScheduleActivity extends Activity implements View.OnClickListener,OnTimeClickListener,
+        OnTimeCreateListener{
 
     private RelativeLayout rltTop;
     private ImageView imgBack;
@@ -103,6 +105,11 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
 
     @Override
     public void onDayClick(int id) {
+
+    }
+
+    @Override
+    public void onTimeCreate() {
 
     }
 }

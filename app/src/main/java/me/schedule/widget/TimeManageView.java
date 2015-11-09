@@ -13,6 +13,7 @@ import java.util.List;
 
 import me.schedule.R;
 import me.schedule.activity.AddScheduleActivity;
+import me.schedule.listener.OnTimeCreateListener;
 import me.schedule.util.ExplosionUtils;
 
 /**
@@ -23,6 +24,7 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
     private LinearLayout llt;
     private int count;
     private List<ItemAddTime> itemList;
+    private OnTimeCreateListener onTimeCreateListener;
 
     private AddScheduleActivity activity;
 
@@ -84,6 +86,9 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
             item.setData("day" + count, "time" + count);
             count++;
             item.setOnTimeClickListener(activity);
+            if(onTimeCreateListener != null){
+                onTimeCreateListener.onTimeCreate();
+            }
         }
     }
 
