@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.schedule.R;
 import me.schedule.bean.ScheduleBean;
 import me.schedule.bean.ScheduleTimeBean;
@@ -44,6 +47,7 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
     private boolean isAlarm;
     private int event;
     private ScheduleBean scheduleBean;
+    private List<ScheduleTimeBean> scheduleTimeBeanList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
         isAlarm = true;
         scheduleBean = new ScheduleBean();
         scheduleBean.setIsAlarm(isAlarm);
+        scheduleTimeBeanList = new ArrayList<>();
     }
 
     private void assignViews() {
@@ -121,12 +126,14 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
     public void onTimeCreate(final int id) {
         ScheduleTimeBean bean = new ScheduleTimeBean();
         bean.setIsCycle(false);
+
         long time = System.currentTimeMillis() / 1000;
         bean.setYear(Integer.parseInt(DateUtil.getYearByTime(time)));
         bean.setMouth(Integer.parseInt(DateUtil.getMouthByTime(time)));
         bean.setDay(Integer.parseInt(DateUtil.getDayByTime(time)));
         bean.setHour(Integer.parseInt(DateUtil.getHourByTime(time)));
         bean.setMinute(Integer.parseInt(DateUtil.getMinuteByTime(time)));
+
         ChooseTimeDialog dialog = new ChooseTimeDialog(this);
         dialog.setOnTimeChooseListener(new OnTimeChooseListener() {
             @Override
@@ -134,6 +141,7 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
                 lltTime.getItem(id).setData(cycle, hour + ":" + min);
             }
         });
+        scheduleTimeBeanList.add(bean);
     }
 
     @Override

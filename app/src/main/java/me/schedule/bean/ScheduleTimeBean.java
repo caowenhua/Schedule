@@ -108,5 +108,8 @@ public class ScheduleTimeBean {
         setCycle(builder.toString());
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 }
