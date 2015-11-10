@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import me.schedule.R;
 import me.schedule.base.BaseDialog;
+import me.schedule.bean.ScheduleBean;
 import me.schedule.listener.OnTimeChooseListener;
 import me.schedule.util.ScreenUtils;
 import me.schedule.widget.CheckBox;
@@ -56,6 +57,11 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
     private int min;
 
     private OnTimeChooseListener onTimeChooseListener;
+
+    public ChooseTimeDialog(Context context, ScheduleBean bean) {
+        super(context, R.style.DialogUpDown);
+
+    }
 
     public ChooseTimeDialog(Context context) {
         super(context, R.style.DialogUpDown);
@@ -273,5 +279,9 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
                 buttons[i].setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.bg_a1_circle));
             }
         }
+    }
+
+    public void setOnTimeChooseListener(OnTimeChooseListener onTimeChooseListener) {
+        this.onTimeChooseListener = onTimeChooseListener;
     }
 }

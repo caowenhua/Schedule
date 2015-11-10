@@ -84,11 +84,11 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
             itemList.add(item);
             addView(item);
             item.setData("day" + count, "time" + count);
+            if(onTimeCreateListener != null){
+                onTimeCreateListener.onTimeCreate(count);
+            }
             count++;
             item.setOnTimeClickListener(activity);
-            if(onTimeCreateListener != null){
-                onTimeCreateListener.onTimeCreate();
-            }
         }
     }
 
@@ -100,5 +100,9 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
                 itemList.remove(i);
             }
         }
+    }
+
+    public ItemAddTime getItem(int index){
+        return itemList.get(index);
     }
 }

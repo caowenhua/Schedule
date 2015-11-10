@@ -307,7 +307,7 @@ public class DateUtil {
 	}
 	
 	/**
-	 * long 转成 MM
+	 * long 转成 yyyy
 	 * 
 	 * @param time
 	 * @return
@@ -315,7 +315,7 @@ public class DateUtil {
 	public static String getYearByTime(long time) {
 		String temp = "";
 		Date dt = new Date(time*1000);
-		SimpleDateFormat sdf = new SimpleDateFormat("MM", Locale.getDefault());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.getDefault());
 		temp = sdf.format(dt);
 		return temp;
 	}
