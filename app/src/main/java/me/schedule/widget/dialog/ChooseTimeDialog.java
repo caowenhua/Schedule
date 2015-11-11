@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import me.schedule.R;
 import me.schedule.base.BaseDialog;
-import me.schedule.bean.ScheduleBean;
+import me.schedule.bean.ScheduleTimeBean;
 import me.schedule.listener.OnTimeChooseListener;
 import me.schedule.util.ScreenUtils;
 import me.schedule.widget.CheckBox;
@@ -49,24 +49,16 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
     private Button[] buttons;
     private int[] days;
     private boolean[] cycle;
-    private boolean isSingle;
-    private int year;
-    private int mouth;
-    private int day;
-    private int hour;
-    private int min;
+
+    private ScheduleTimeBean scheduleTimeBean;
 
     private OnTimeChooseListener onTimeChooseListener;
 
-    public ChooseTimeDialog(Context context, ScheduleBean bean) {
+    public ChooseTimeDialog(Context context, ScheduleTimeBean bean) {
         super(context, R.style.DialogUpDown);
-
+        scheduleTimeBean = bean;
+        init();
     }
-
-    public ChooseTimeDialog(Context context) {
-        super(context, R.style.DialogUpDown);
-    }
-
 
     @Override
     protected int setLayout() {
@@ -110,10 +102,13 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
 
     @Override
     protected void initData() {
-        cycle = new boolean[]{true, true, true, true, true, false, false};
+
+    }
+
+    private void init() {
+        cycle = scheduleTimeBean.getDays();
         buttons = new Button[]{btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7};
         days = new int[]{};
-        isSingle = true;
 //        check_single.setIsChecked(true);
 
         hourAdapter = new IntegerWheelAdapter(0, 23);
@@ -125,7 +120,8 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_hour.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                hour = newValue;
+                scheduleTimeBean.setHour(newValue);
+                callBackChoose();
             }
         });
 
@@ -138,7 +134,8 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_min.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                min = newValue;
+                scheduleTimeBean.setMinute(newValue);
+                callBackChoose();
             }
         });
 
@@ -151,9 +148,10 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_year.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                year = newValue;
-                dayAdapter.refreshData(year, mouth);
+                scheduleTimeBean.setYear(newValue);
+                dayAdapter.refreshData(scheduleTimeBean.getYear(), scheduleTimeBean.getMouth());
                 wheel_day.invalidate();
+                callBackChoose();
             }
         });
 
@@ -166,15 +164,14 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_mouth.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                mouth = newValue;
-                dayAdapter.refreshData(year, mouth);
-                wheel_day.invalidate();
+                scheduleTimeBean.setMouth(newValue);
+                dayAdapter.refreshData(scheduleTimeBean.getYear(), scheduleTimeBean.getMouth());
+                wheel_day.invalidateLayouts();
+                callBackChoose();
             }
         });
 
-        year = 2015;
-        mouth = 11;
-        dayAdapter = new DayWheelAdapter(year, mouth);
+        dayAdapter = new DayWheelAdapter(scheduleTimeBean.getYear(), scheduleTimeBean.getMouth());
         wheel_day.setAdapter(dayAdapter);
         wheel_day.setLabel("日");
         wheel_day.setCyclic(true);
@@ -183,7 +180,8 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_day.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-
+                scheduleTimeBean.setDay(newValue);
+                callBackChoose();
             }
         });
 
@@ -225,15 +223,15 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
     @Override
     public void onCheck(View v, boolean isCheck) {
         if(check_cycle == v){
-            if(isCheck && isSingle){
-                isSingle = false;
+            if(isCheck && !scheduleTimeBean.isCycle()){
+                scheduleTimeBean.setIsCycle(true);
                 refreshStatus();
                 check_single.setIsChecked(false);
             }
         }
         else{
-            if(isCheck && !isSingle){
-                isSingle = true;
+            if(isCheck && scheduleTimeBean.isCycle()){
+                scheduleTimeBean.setIsCycle(false);
                 refreshStatus();
                 check_cycle.setIsChecked(false);
             }
@@ -241,7 +239,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
     }
 
     private void refreshStatus(){
-        if(isSingle){
+        if(!scheduleTimeBean.isCycle()){
             view_mask.setVisibility(View.VISIBLE);
             wheel_year.setAvailable(true);
             wheel_mouth.setAvailable(true);
@@ -279,9 +277,70 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
                 buttons[i].setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.bg_a1_circle));
             }
         }
+        scheduleTimeBean.setDays(cycle);
     }
 
     public void setOnTimeChooseListener(OnTimeChooseListener onTimeChooseListener) {
         this.onTimeChooseListener = onTimeChooseListener;
+    }
+
+    private void callBackChoose(){
+        if(onTimeChooseListener != null){
+            if(scheduleTimeBean.isCycle()){
+                onTimeChooseListener.onChoose(getCycleString(), scheduleTimeBean.getHour(), scheduleTimeBean.getMinute());
+            }
+            else{
+                onTimeChooseListener.onChoose(scheduleTimeBean.getYear() + "." + scheduleTimeBean.getMouth() + "." + scheduleTimeBean.getDay()
+                        , scheduleTimeBean.getHour(), scheduleTimeBean.getMinute());
+            }
+        }
+    }
+
+
+    private String getCycleString(){
+        if(cycle[0] && cycle[1] && cycle[2] && cycle[3] && cycle[4] && cycle[5] && cycle[6]){
+            return "每天";
+        }
+        else if(cycle[0] && cycle[1] && cycle[2] && cycle[3] && cycle[4] && !cycle[5] && !cycle[6]){
+            return "工作日";
+        }
+        else if(!cycle[0] && !cycle[1] && !cycle[2] && !cycle[3] && !cycle[4] && cycle[5] && cycle[6]){
+            return "周末";
+        }
+        else {
+            String cycleString = "";
+            boolean isFirst = true;
+            for (int i = 0; i < cycle.length; i++) {
+                if(cycle[i]){
+                    if(isFirst){
+                        cycleString = "每周" + getDayByIndex(i);
+                    }
+                    else{
+                        cycleString = "," + getDayByIndex(i);
+                    }
+                }
+            }
+            return cycleString;
+        }
+    }
+
+    private String getDayByIndex(int index){
+        switch (index){
+            case 0:
+                return "一";
+            case 1:
+                return "二";
+            case 2:
+                return "三";
+            case 3:
+                return "四";
+            case 4:
+                return "五";
+            case 5:
+                return "六";
+            case 6:
+                return "日";
+        }
+        return "";
     }
 }

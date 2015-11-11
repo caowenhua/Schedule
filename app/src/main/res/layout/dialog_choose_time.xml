@@ -168,28 +168,28 @@
 
         <me.schedule.widget.wheel.WheelView
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.0"
             android:layout_height="150dp"
             android:id="@+id/wheel_mouth"
             />
 
         <me.schedule.widget.wheel.WheelView
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.0"
             android:layout_height="150dp"
             android:id="@+id/wheel_day"
             />
 
         <me.schedule.widget.wheel.WheelView
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.0"
             android:layout_height="150dp"
             android:id="@+id/wheel_hour"
             />
 
         <me.schedule.widget.wheel.WheelView
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.0"
             android:layout_height="150dp"
             android:id="@+id/wheel_min"
             />

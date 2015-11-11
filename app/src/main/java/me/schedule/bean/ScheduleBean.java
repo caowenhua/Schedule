@@ -92,4 +92,21 @@ public class ScheduleBean {
 //    public void setTimes(Collection<ScheduleTimeBean> times) {
 //        this.times = times;
 //    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        ScheduleBean bean;
+        try {
+            bean = (ScheduleBean) o;
+        }
+        catch (Exception e){
+            return false;
+        }
+        if(isAlarm == bean.isAlarm() && event == bean.getEvent() && detail.equals(bean.getDetail()) && remark.equals(bean.getRemark()) &&
+                name.equals(bean.getName()) && times.equals(bean.getTimes())){
+            return true;
+        }
+        return false;
+    }
 }

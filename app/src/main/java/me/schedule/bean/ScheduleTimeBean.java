@@ -84,6 +84,9 @@ public class ScheduleTimeBean {
     }
 
     public boolean[] getDays() {
+        if(days != null){
+            return days;
+        }
         days = new boolean[7];
         String[] tmp = cycle.split(",");
         for (int i = 0; i < tmp.length; i++) {
@@ -110,6 +113,17 @@ public class ScheduleTimeBean {
 
     @Override
     public boolean equals(Object o) {
-        return super.equals(o);
+        ScheduleTimeBean bean;
+        try {
+            bean = (ScheduleTimeBean) o;
+        }
+        catch (Exception e){
+            return false;
+        }
+        if(isCycle == bean.isCycle() && cycle.equals(bean.getCycle()) && hour == bean.getHour() && minute == bean.getMinute() &&
+                day == bean.getDay() && mouth == bean.getMouth() && year == bean.getYear()){
+            return true;
+        }
+        return false;
     }
 }

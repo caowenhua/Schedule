@@ -392,7 +392,7 @@ public class WheelView extends View {
 	/**
 	 * Invalidates layouts
 	 */
-	private void invalidateLayouts() {
+	public void invalidateLayouts() {
 		itemsLayout = null;
 		valueLayout = null;
 		scrollingOffset = 0;

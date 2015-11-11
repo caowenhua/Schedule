@@ -5,9 +5,6 @@ package me.schedule.widget.wheel;
  */
 public class DayWheelAdapter implements WheelAdapter{
 
-    /** The default min value */
-    public final int DEFAULT_MAX_VALUE = 30;
-
     private int maxValue;
 
     public DayWheelAdapter(int year, int mouth) {

@@ -5,20 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toast;
 
 import me.schedule.R;
 import me.schedule.bean.ScheduleBean;
 import me.schedule.bean.ScheduleTimeBean;
+import me.schedule.dao.ScheduleDAO;
 import me.schedule.listener.OnMatterListener;
 import me.schedule.listener.OnTimeChooseListener;
 import me.schedule.listener.OnTimeClickListener;
 import me.schedule.listener.OnTimeCreateListener;
-import me.schedule.util.DateUtil;
 import me.schedule.widget.MatterEventView;
 import me.schedule.widget.TimeManageView;
 import me.schedule.widget.dialog.ChooseSingleTimeDialog;
@@ -30,24 +26,19 @@ import me.schedule.widget.dialog.ChooseTimeDialog;
 public class AddScheduleActivity extends Activity implements View.OnClickListener,OnTimeClickListener,
         OnTimeCreateListener, OnMatterListener{
 
-    private RelativeLayout rltTop;
     private ImageView imgBack;
     private ImageView imgTick;
-    private TextView tvName;
     private EditText edtName;
-    private TextView tvAlarm;
     private ImageView imgAlarm;
     private TimeManageView lltTime;
     private MatterEventView rltMatter;
-    private TextView tvRemark;
     private EditText edtRemark;
-    private TextView tvDetail;
     private EditText edtDetail;
 
     private boolean isAlarm;
     private int event;
     private ScheduleBean scheduleBean;
-    private List<ScheduleTimeBean> scheduleTimeBeanList;
+//    private List<ScheduleTimeBean> scheduleTimeBeanList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,27 +49,23 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
         isAlarm = true;
         scheduleBean = new ScheduleBean();
         scheduleBean.setIsAlarm(isAlarm);
-        scheduleTimeBeanList = new ArrayList<>();
     }
 
     private void assignViews() {
-        rltTop = (RelativeLayout) findViewById(R.id.rlt_top);
         imgBack = (ImageView) findViewById(R.id.img_back);
         imgTick = (ImageView) findViewById(R.id.img_tick);
-        tvName = (TextView) findViewById(R.id.tv_name);
         edtName = (EditText) findViewById(R.id.edt_name);
-        tvAlarm = (TextView) findViewById(R.id.tv_alarm);
         imgAlarm = (ImageView) findViewById(R.id.img_alarm);
         lltTime = (TimeManageView) findViewById(R.id.llt_time);
         rltMatter = (MatterEventView) findViewById(R.id.rlt_matter);
-        tvRemark = (TextView) findViewById(R.id.tv_remark);
         edtRemark = (EditText) findViewById(R.id.edt_remark);
-        tvDetail = (TextView) findViewById(R.id.tv_detail);
         edtDetail = (EditText) findViewById(R.id.edt_detail);
 
         imgBack.setOnClickListener(this);
         imgTick.setOnClickListener(this);
         rltMatter.setOnMatterListener(this);
+        lltTime.setOnTimeCreateListener(this);
+        imgAlarm.setOnClickListener(this);
     }
 
     private void refreshSwitchButton(){
@@ -98,7 +85,22 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
                 ChooseSingleTimeDialog chooseSingleTimeDialog = new ChooseSingleTimeDialog(this);
                 break;
             case R.id.img_tick:
-                ChooseTimeDialog dialog = new ChooseTimeDialog(this);
+                if(edtName.getText().length() == 0){
+                    Toast.makeText(this, "名称不能为空", Toast.LENGTH_SHORT).show();
+                }
+                else if(lltTime.getScheduleTimeList().size() == 0){
+                    Toast.makeText(this, "请先设定时间", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    scheduleBean.setEvent(event);
+                    scheduleBean.setTimes(lltTime.getScheduleTimeList());
+                    scheduleBean.setDetail(edtDetail.getText().length() == 0 ? "" : edtDetail.getText().toString());
+                    scheduleBean.setName(edtName.getText().toString());
+                    scheduleBean.setRemark(edtRemark.getText().length() == 0 ? "" : edtRemark.getText().toString());
+                    ScheduleDAO dao = ScheduleDAO.getInstance(this);
+                    dao.add(scheduleBean);
+                    Toast.makeText(this, "添加时间成功", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.img_alarm:
                 isAlarm = !isAlarm;
@@ -108,40 +110,30 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
     }
 
     @Override
-    public void onTimeClick(int id) {
-
+    public void onTimeClick(int id, ScheduleTimeBean bean) {
+        ChooseTimeDialog dialog = new ChooseTimeDialog(this, lltTime.getItemById(id).getScheduleTimeBean());
     }
 
     @Override
-    public void onDelClick(int id) {
+    public void onDelClick(int id, ScheduleTimeBean bean) {
         lltTime.delItem(id);
     }
 
     @Override
-    public void onDayClick(int id) {
+    public void onDayClick(int id, ScheduleTimeBean bean) {
 
     }
 
     @Override
-    public void onTimeCreate(final int id) {
-        ScheduleTimeBean bean = new ScheduleTimeBean();
-        bean.setIsCycle(false);
-
-        long time = System.currentTimeMillis() / 1000;
-        bean.setYear(Integer.parseInt(DateUtil.getYearByTime(time)));
-        bean.setMouth(Integer.parseInt(DateUtil.getMouthByTime(time)));
-        bean.setDay(Integer.parseInt(DateUtil.getDayByTime(time)));
-        bean.setHour(Integer.parseInt(DateUtil.getHourByTime(time)));
-        bean.setMinute(Integer.parseInt(DateUtil.getMinuteByTime(time)));
-
-        ChooseTimeDialog dialog = new ChooseTimeDialog(this);
+    public void onTimeCreate(final int id, ScheduleTimeBean bean) {
+        ChooseTimeDialog dialog = new ChooseTimeDialog(this, bean);
         dialog.setOnTimeChooseListener(new OnTimeChooseListener() {
             @Override
             public void onChoose(String cycle, int hour, int min) {
-                lltTime.getItem(id).setData(cycle, hour + ":" + min);
+                if(lltTime.getItemById(id) != null)
+                    lltTime.getItemById(id).setData(cycle, hour + ":" + min);
             }
         });
-        scheduleTimeBeanList.add(bean);
     }
 
     @Override

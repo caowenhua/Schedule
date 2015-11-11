@@ -13,6 +13,7 @@ import java.util.List;
 
 import me.schedule.R;
 import me.schedule.activity.AddScheduleActivity;
+import me.schedule.bean.ScheduleTimeBean;
 import me.schedule.listener.OnTimeCreateListener;
 import me.schedule.util.ExplosionUtils;
 
@@ -85,7 +86,7 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
             addView(item);
             item.setData("day" + count, "time" + count);
             if(onTimeCreateListener != null){
-                onTimeCreateListener.onTimeCreate(count);
+                onTimeCreateListener.onTimeCreate(count, item.getScheduleTimeBean());
             }
             count++;
             item.setOnTimeClickListener(activity);
@@ -102,7 +103,24 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
         }
     }
 
-    public ItemAddTime getItem(int index){
-        return itemList.get(index);
+    public ItemAddTime getItemById(int id){
+        for (int i = 0; i < itemList.size(); i++) {
+            if(itemList.get(i).getItemId() == id){
+                return itemList.get(i);
+            }
+        }
+        return null;
+    }
+
+    public List<ScheduleTimeBean> getScheduleTimeList(){
+        List<ScheduleTimeBean> list = new ArrayList<>();
+        for (int i = 0; i < itemList.size(); i++) {
+            list.add(itemList.get(i).getScheduleTimeBean());
+        }
+        return list;
+    }
+
+    public void setOnTimeCreateListener(OnTimeCreateListener onTimeCreateListener) {
+        this.onTimeCreateListener = onTimeCreateListener;
     }
 }
