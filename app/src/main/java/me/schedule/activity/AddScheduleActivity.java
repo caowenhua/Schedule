@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import me.schedule.R;
 import me.schedule.bean.ScheduleBean;
 import me.schedule.bean.ScheduleTimeBean;
@@ -17,7 +19,6 @@ import me.schedule.listener.OnTimeClickListener;
 import me.schedule.listener.OnTimeCreateListener;
 import me.schedule.widget.MatterEventView;
 import me.schedule.widget.TimeManageView;
-import me.schedule.widget.dialog.ChooseSingleTimeDialog;
 import me.schedule.widget.dialog.ChooseTimeDialog;
 
 /**
@@ -81,8 +82,7 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_back:
-//                finish();
-                ChooseSingleTimeDialog chooseSingleTimeDialog = new ChooseSingleTimeDialog(this);
+                finish();
                 break;
             case R.id.img_tick:
                 if(edtName.getText().length() == 0){
@@ -92,14 +92,19 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
                     Toast.makeText(this, "请先设定时间", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    List<ScheduleTimeBean> scheduleTimeBeanList = lltTime.getScheduleTimeList();
+                    for (int i = 0; i < scheduleTimeBeanList.size(); i++) {
+                        scheduleTimeBeanList.get(i).setScheduleBean(scheduleBean);
+                    }
                     scheduleBean.setEvent(event);
-                    scheduleBean.setTimes(lltTime.getScheduleTimeList());
+//                    scheduleBean.setTimes(lltTime.getScheduleTimeList());
                     scheduleBean.setDetail(edtDetail.getText().length() == 0 ? "" : edtDetail.getText().toString());
                     scheduleBean.setName(edtName.getText().toString());
                     scheduleBean.setRemark(edtRemark.getText().length() == 0 ? "" : edtRemark.getText().toString());
                     ScheduleDAO dao = ScheduleDAO.getInstance(this);
                     dao.add(scheduleBean);
                     Toast.makeText(this, "添加时间成功", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
                 break;
             case R.id.img_alarm:

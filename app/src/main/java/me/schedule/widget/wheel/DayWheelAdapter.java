@@ -18,12 +18,16 @@ public class DayWheelAdapter implements WheelAdapter{
 
     @Override
     public String getItem(int index) {
-        return index + "";
+        return (index+1) + "";
     }
 
     @Override
     public int getMaximumLength() {
-        return maxValue;
+        return 2;
+    }
+
+    public int getIndex(int index){
+        return index+1;
     }
 
     public void refreshData(int year, int mouth){

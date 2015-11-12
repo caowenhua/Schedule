@@ -6,15 +6,19 @@ import android.database.sqlite.SQLiteDatabase;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.schedule.bean.ScheduleBean;
+import me.schedule.bean.ScheduleTimeBean;
+
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
-	private static final String TABLE_NAME = "social.db";
+	private static final String TABLE_NAME = "schedule.db";
 	private static DatabaseHelper instance;
 	private Map<String, Dao> daos = new HashMap<String, Dao>();
 	
@@ -48,27 +52,29 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase database,
 			ConnectionSource connectionSource)
 	{
-//		try
-//		{
-//			TableUtils.createTable(connectionSource, UploadShareBean.class);
-//		} catch (SQLException e)
-//		{
-//			e.printStackTrace();
-//		}
+		try
+		{
+			TableUtils.createTable(connectionSource, ScheduleBean.class);
+			TableUtils.createTable(connectionSource, ScheduleTimeBean.class);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase database,
 			ConnectionSource connectionSource, int oldVersion, int newVersion)
 	{
-//		try
-//		{
-//			TableUtils.dropTable(connectionSource, UploadShareBean.class, true);
-//			onCreate(database, connectionSource);
-//		} catch (SQLException e)
-//		{
-//			e.printStackTrace();
-//		}
+		try
+		{
+			TableUtils.dropTable(connectionSource, ScheduleBean.class, true);
+			TableUtils.dropTable(connectionSource, ScheduleTimeBean.class, true);
+			onCreate(database, connectionSource);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public synchronized Dao getDao(Class clazz) throws SQLException

@@ -10,7 +10,6 @@ import me.schedule.base.BaseDialog;
 import me.schedule.bean.ScheduleTimeBean;
 import me.schedule.listener.OnTimeChooseListener;
 import me.schedule.util.ScreenUtils;
-import me.schedule.widget.CheckBox;
 import me.schedule.widget.wheel.DayWheelAdapter;
 import me.schedule.widget.wheel.IntegerWheelAdapter;
 import me.schedule.widget.wheel.OnWheelChangedListener;
@@ -19,7 +18,7 @@ import me.schedule.widget.wheel.WheelView;
 /**
  * Created by caowenhua on 2015/11/9.
  */
-public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener, CheckBox.OnCheckListener {
+public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener{
 
     private ImageView img_x;
     private WheelView wheel_hour;
@@ -43,8 +42,10 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
     private DayWheelAdapter dayAdapter;
     private IntegerWheelAdapter mouthAdapter;
 
-    private CheckBox check_cycle;
-    private CheckBox check_single;
+//    private CheckBox check_cycle;
+//    private CheckBox check_single;
+    private ImageView img_cycle;
+    private ImageView img_single;
     private View view_mask;
     private Button[] buttons;
     private int[] days;
@@ -81,8 +82,11 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         btn_5 = findViewByID(R.id.btn_5);
         btn_6 = findViewByID(R.id.btn_6);
         btn_7 = findViewByID(R.id.btn_7);
-        check_cycle = findViewByID(R.id.check_cycle);
-        check_single = findViewByID(R.id.check_single);
+        img_cycle = findViewByID(R.id.img_cycle);
+        img_single = findViewByID(R.id.img_single);
+
+//        check_cycle = findViewByID(R.id.check_cycle);
+//        check_single = findViewByID(R.id.check_single);
 
         view_mask = findViewByID(R.id.view_mask);
 
@@ -95,9 +99,11 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         btn_5.setOnClickListener(this);
         btn_6.setOnClickListener(this);
         btn_7.setOnClickListener(this);
+        img_cycle.setOnClickListener(this);
+        img_single.setOnClickListener(this);
 
-        check_cycle.setOnCheckListener(this);
-        check_single.setOnCheckListener(this);
+//        check_cycle.setOnCheckListener(this);
+//        check_single.setOnCheckListener(this);
     }
 
     @Override
@@ -120,7 +126,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_hour.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                scheduleTimeBean.setHour(newValue);
+                scheduleTimeBean.setHour(hourAdapter.getIndex(newValue));
                 callBackChoose();
             }
         });
@@ -134,7 +140,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_min.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                scheduleTimeBean.setMinute(newValue);
+                scheduleTimeBean.setMinute(minAdapter.getIndex(newValue));
                 callBackChoose();
             }
         });
@@ -148,8 +154,9 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_year.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                scheduleTimeBean.setYear(newValue);
+                scheduleTimeBean.setYear(yearAdapter.getIndex(newValue));
                 dayAdapter.refreshData(scheduleTimeBean.getYear(), scheduleTimeBean.getMouth());
+                wheel_day.invalidateLayouts();
                 wheel_day.invalidate();
                 callBackChoose();
             }
@@ -164,9 +171,10 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_mouth.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                scheduleTimeBean.setMouth(newValue);
+                scheduleTimeBean.setMouth(mouthAdapter.getIndex(newValue));
                 dayAdapter.refreshData(scheduleTimeBean.getYear(), scheduleTimeBean.getMouth());
                 wheel_day.invalidateLayouts();
+                wheel_day.invalidate();
                 callBackChoose();
             }
         });
@@ -180,11 +188,12 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_day.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                scheduleTimeBean.setDay(newValue);
+                scheduleTimeBean.setDay(dayAdapter.getIndex(newValue));
                 callBackChoose();
             }
         });
 
+        refreshStatus();
     }
 
     @Override
@@ -217,26 +226,34 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
             case R.id.btn_7:
                 refreshButton(6);
                 break;
+            case R.id.img_cycle:
+                scheduleTimeBean.setIsCycle(!scheduleTimeBean.isCycle());
+                refreshStatus();
+                break;
+            case R.id.img_single:
+                scheduleTimeBean.setIsCycle(!scheduleTimeBean.isCycle());
+                refreshStatus();
+                break;
         }
     }
 
-    @Override
-    public void onCheck(View v, boolean isCheck) {
-        if(check_cycle == v){
-            if(isCheck && !scheduleTimeBean.isCycle()){
-                scheduleTimeBean.setIsCycle(true);
-                refreshStatus();
-                check_single.setIsChecked(false);
-            }
-        }
-        else{
-            if(isCheck && scheduleTimeBean.isCycle()){
-                scheduleTimeBean.setIsCycle(false);
-                refreshStatus();
-                check_cycle.setIsChecked(false);
-            }
-        }
-    }
+//    @Override
+//    public void onCheck(View v, boolean isCheck) {
+//        if(check_cycle == v){
+//            if(isCheck && !scheduleTimeBean.isCycle()){
+//                scheduleTimeBean.setIsCycle(true);
+//                refreshStatus();
+//                check_single.setIsChecked(false);
+//            }
+//        }
+//        else{
+//            if(isCheck && scheduleTimeBean.isCycle()){
+//                scheduleTimeBean.setIsCycle(false);
+//                refreshStatus();
+//                check_cycle.setIsChecked(false);
+//            }
+//        }
+//    }
 
     private void refreshStatus(){
         if(!scheduleTimeBean.isCycle()){
@@ -251,6 +268,8 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
             btn_5.setOnClickListener(null);
             btn_6.setOnClickListener(null);
             btn_7.setOnClickListener(null);
+            img_single.setImageResource(R.drawable.ic_check);
+            img_cycle.setImageResource(R.drawable.ic_uncheck);
         }
         else{
             view_mask.setVisibility(View.GONE);
@@ -264,6 +283,8 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
             btn_5.setOnClickListener(this);
             btn_6.setOnClickListener(this);
             btn_7.setOnClickListener(this);
+            img_single.setImageResource(R.drawable.ic_uncheck);
+            img_cycle.setImageResource(R.drawable.ic_check);
         }
     }
 

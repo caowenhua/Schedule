@@ -25,6 +25,9 @@ public class ScheduleTimeBean {
     @DatabaseField(columnName = "cycle")
     private String cycle;
 
+    @DatabaseField(foreign=true,foreignAutoRefresh=true)
+    private ScheduleBean scheduleBean;
+
     private boolean[] days;
 
     public boolean isCycle() {
@@ -125,5 +128,21 @@ public class ScheduleTimeBean {
             return true;
         }
         return false;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ScheduleBean getScheduleBean() {
+        return scheduleBean;
+    }
+
+    public void setScheduleBean(ScheduleBean scheduleBean) {
+        this.scheduleBean = scheduleBean;
     }
 }
