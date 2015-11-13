@@ -1,5 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main"
+        android:id="@+id/rlt_top"
+        >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_back"
+            android:scaleType="centerInside"
+            android:src="@drawable/titlebar_back"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_xl"
+            android:textColor="@color/white"
+            android:text="添加课程"
+            />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_tick"
+            android:scaleType="centerInside"
+            android:src="@drawable/titlebar_tick"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:text="名称"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:id="@+id/tv_name"
+        android:layout_below="@+id/rlt_top"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/edt_name"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_toRightOf="@+id/tv_name"
+        android:background="@null"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:hint="点击输入课程名称"
+        android:textColorHint="@color/text"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text"
+        android:layout_below="@+id/rlt_top"
+        />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:text="课室号"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:id="@+id/tv_classroom"
+        android:layout_below="@+id/tv_name"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/edt_classroom"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_toRightOf="@+id/tv_classroom"
+        android:background="@null"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:hint="点击输入课室号"
+        android:textColorHint="@color/text"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text"
+        android:layout_below="@+id/tv_name"
+        />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:text="备注"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:id="@+id/tv_remark"
+        android:layout_below="@+id/tv_classroom"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/edt_remark"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_toRightOf="@+id/tv_remark"
+        android:background="@null"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:hint="点击输入事件备注"
+        android:textColorHint="@color/text"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text"
+        android:layout_below="@+id/tv_classroom"
+        />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:text="时间"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:id="@+id/tv_time_t"
+        android:layout_below="@+id/tv_remark"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="星期一"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/tv_time"
+        android:layout_below="@+id/tv_remark"
+        android:layout_toRightOf="@+id/tv_time_t"
+        />
+
+
 
 </RelativeLayout>
