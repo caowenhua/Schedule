@@ -52,7 +52,11 @@ public class ScheduleTimeDAO {
         }
     }
 
-    public void delete(){
-
+    public void delete(ScheduleTimeBean bean){
+        try {
+            dao.delete(bean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

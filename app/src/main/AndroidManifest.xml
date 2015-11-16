@@ -16,7 +16,7 @@
         android:theme="@android:style/Theme.NoTitleBar" >
 
         <activity
-            android:name=".activity.AddScheduleActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
@@ -24,7 +24,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.AddCourseActivity"
+            android:screenOrientation="portrait"/>
 
+        <activity android:name=".activity.AddScheduleActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.CourseActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.CourseDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.DayScheduleActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.MouthScheduleActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.ScheduleActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.ScheduleDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.WeekScheduleActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

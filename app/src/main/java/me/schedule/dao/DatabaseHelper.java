@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.schedule.bean.CourseBean;
 import me.schedule.bean.ScheduleBean;
 import me.schedule.bean.ScheduleTimeBean;
 
@@ -56,6 +57,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		{
 			TableUtils.createTable(connectionSource, ScheduleBean.class);
 			TableUtils.createTable(connectionSource, ScheduleTimeBean.class);
+			TableUtils.createTable(connectionSource, CourseBean.class);
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
@@ -70,6 +72,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		{
 			TableUtils.dropTable(connectionSource, ScheduleBean.class, true);
 			TableUtils.dropTable(connectionSource, ScheduleTimeBean.class, true);
+			TableUtils.dropTable(connectionSource, CourseBean.class, true);
 			onCreate(database, connectionSource);
 		} catch (SQLException e)
 		{

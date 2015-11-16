@@ -3,35 +3,25 @@ package me.schedule.dao;
 import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.schedule.bean.ScheduleBean;
+import me.schedule.bean.CourseBean;
 
 /**
- * Created by caowenhua on 2015/11/10.
+ * Created by caowenhua on 2015/11/16.
  */
-public class ScheduleDAO {
-    private Dao<ScheduleBean, Integer> dao;
+public class CourseDAO {
+    private Dao<CourseBean, Integer> dao;
     private DatabaseHelper helper;
 
-    private static ScheduleDAO scheduleDAO;
-
-    public static ScheduleDAO getInstance(Context context){
-        if(scheduleDAO == null){
-            scheduleDAO = new ScheduleDAO(context);
-        }
-        return scheduleDAO;
-    }
-
-    private ScheduleDAO(Context context) {
+    public CourseDAO(Context context) {
         try
         {
             helper = DatabaseHelper.getHelper(context);
-            dao = helper.getDao(ScheduleBean.class);
+            dao = helper.getDao(CourseBean.class);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
@@ -46,23 +36,7 @@ public class ScheduleDAO {
         return 0;
     }
 
-    public void add(ScheduleBean bean){
-        try {
-            dao.create(bean);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void delete(ScheduleBean bean){
-        try {
-            dao.delete(bean);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<ScheduleBean> getAll(){
+    public List<CourseBean> getAll(){
         try {
             return dao.queryForAll();
         } catch (SQLException e) {
@@ -71,8 +45,35 @@ public class ScheduleDAO {
         return new ArrayList<>();
     }
 
-    public List<ScheduleBean> getCurrent(){
-        QueryBuilder queryBuilder = dao.queryBuilder();
-        return new ArrayList<>();
+    public void add(CourseBean bean){
+        try {
+            dao.create(bean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(CourseBean bean){
+        try {
+            dao.delete(bean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int id){
+        try {
+            dao.deleteById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(CourseBean bean){
+        try {
+            dao.update(bean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

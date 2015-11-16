@@ -43,9 +43,11 @@
         android:layout_height="match_parent"
         android:id="@+id/lv_list"
         android:divider="@color/background"
-        android:dividerHeight="15dp"
+        android:dividerHeight="10dp"
         android:layout_above="@+id/llt_bottom"
         android:layout_below="@+id/rlt_top"
+        android:background="@color/white"
+        android:listSelector="@android:color/transparent"
         />
     
     <LinearLayout

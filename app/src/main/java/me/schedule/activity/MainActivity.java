@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import butterknife.ButterKnife;
 import me.schedule.R;
+import me.schedule.adapter.MainListAdapter;
+import me.schedule.dao.ScheduleDAO;
 
 /**
  * Created by caowenhua on 2015/11/5.
@@ -23,14 +24,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageView imgAdd;
     private ImageView imgCourse;
 
+    private MainListAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
         assignViews();
+
+        ScheduleDAO dao = ScheduleDAO.getInstance(this);
+        adapter = new MainListAdapter(dao.getCurrent(), this);
+        lvList.setAdapter(adapter);
     }
 
 
@@ -41,6 +47,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgSchedule = (ImageView) findViewById(R.id.img_schedule);
         imgAdd = (ImageView) findViewById(R.id.img_add);
         imgCourse = (ImageView) findViewById(R.id.img_course);
+
+        imgAdd.setOnClickListener(this);
+        imgTick.setOnClickListener(this);
+        imgSetting.setOnClickListener(this);
+        imgSchedule.setOnClickListener(this);
+        imgCourse.setOnClickListener(this);
     }
 
 
