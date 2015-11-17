@@ -48,8 +48,133 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            >
 
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_name"
+                android:id="@+id/img1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_name"
+                android:textSize="@dimen/text_l"
+                android:textColor="@color/text_deep"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp"
+                android:layout_toRightOf="@+id/img1"
+                />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_classroom"
+                android:id="@+id/img2"
+                android:layout_below="@+id/tv_name"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_classroom"
+                android:textSize="@dimen/text_l"
+                android:textColor="@color/text_deep"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp"
+                android:layout_toRightOf="@+id/img2"
+                android:layout_below="@+id/tv_name"
+                />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_day"
+                android:id="@+id/img3"
+                android:layout_below="@+id/tv_classroom"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_day"
+                android:textSize="@dimen/text_l"
+                android:textColor="@color/text_deep"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp"
+                android:layout_toRightOf="@+id/img3"
+                android:layout_below="@+id/tv_classroom"
+                />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_teacher"
+                android:id="@+id/img4"
+                android:layout_below="@+id/tv_day"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_teacher"
+                android:textSize="@dimen/text_l"
+                android:textColor="@color/text_deep"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp"
+                android:layout_toRightOf="@+id/img4"
+                android:layout_below="@+id/tv_day"
+                />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_start"
+                android:id="@+id/img5"
+                android:layout_below="@+id/tv_teacher"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_stamp"
+                android:textSize="@dimen/text_l"
+                android:textColor="@color/text_deep"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp"
+                android:layout_toRightOf="@+id/img5"
+                android:layout_below="@+id/tv_teacher"
+                />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_remark"
+                android:id="@+id/img6"
+                android:layout_below="@+id/tv_stamp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_remark"
+                android:textSize="@dimen/text_l"
+                android:textColor="@color/text_deep"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp"
+                android:layout_toRightOf="@+id/img6"
+                android:layout_below="@+id/tv_stamp"
+                />
         </RelativeLayout>
     </ScrollView>
 

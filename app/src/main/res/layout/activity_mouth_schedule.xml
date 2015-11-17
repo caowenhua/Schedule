@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main"
+        android:id="@+id/rlt_top"
+        >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_back"
+            android:scaleType="centerInside"
+            android:src="@drawable/titlebar_back"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_xl"
+            android:textColor="@color/white"
+            android:text="2015.6"
+            />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_setting"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_setting"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlt_top"
+        android:background="@color/white"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <me.schedule.widget.MouthCalenderView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/view_mouth"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -27,6 +27,8 @@ public class CourseActivity extends Activity implements View.OnClickListener, On
     private ImageView imgSetting;
     private CourseTableView viewCoursetable;
 
+    private List<CourseBean> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,7 @@ public class CourseActivity extends Activity implements View.OnClickListener, On
         viewCoursetable.setOnCourseClickListener(this);
 
         CourseDAO dao = new CourseDAO(this);
-        List<CourseBean> list = dao.getAll();
+        list = dao.getAll();
         viewCoursetable.setCourseBeanList(list);
     }
 
@@ -66,7 +68,17 @@ public class CourseActivity extends Activity implements View.OnClickListener, On
     @Override
     public void onCourseClick(int row, int column, boolean isIn) {
         if(isIn){
+            CourseBean bean = null;
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i).getDay() == row){
+                    if(list.get(i).getStartStamp() <= column && list.get(i).getStartStamp() + list.get(i).getDurationStamp() - 1 >= column){
+                        bean = list.get(i);
+                        break;
+                    }
+                }
+            }
             Intent intent = new Intent(this, CourseDetailActivity.class);
+            intent.putExtra("bean", bean);
             startActivity(intent);
         }
         else{

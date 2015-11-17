@@ -44,6 +44,21 @@ public class AddCourseDialog extends BaseDialog implements View.OnClickListener{
         tvCount.setText(durationStamp + "");
     }
 
+    public AddCourseDialog(Context context, CourseBean bean) {
+        super(context);
+        edtRemark.setText(bean.getRemark());
+        edtTeacher.setText(bean.getTeacher());
+        edtClassroom.setText(bean.getClassroom());
+        edtName.setText(bean.getName());
+        tvCount.setText(bean.getDurationStamp() + "");
+        tvTime.setText(getDayByIndex(bean.getDay()));
+        tvStart.setText("第" + (bean.getStartStamp() + 1) + "节");
+
+        day = bean.getDay();
+        startStamp = bean.getStartStamp();
+        durationStamp = bean.getDurationStamp();
+    }
+
     @Override
     protected int setLayout() {
         return R.layout.dialog_add_course;

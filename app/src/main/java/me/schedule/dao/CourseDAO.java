@@ -47,7 +47,7 @@ public class CourseDAO {
 
     public void add(CourseBean bean){
         try {
-            dao.create(bean);
+            dao.createOrUpdate(bean);
         } catch (SQLException e) {
             e.printStackTrace();
         }

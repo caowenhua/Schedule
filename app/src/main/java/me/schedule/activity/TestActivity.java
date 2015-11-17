@@ -2,36 +2,27 @@ package me.schedule.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import me.schedule.R;
-import me.schedule.application.ECrashHandler;
+import me.schedule.util.ScreenUtils;
+import me.schedule.widget.MouthCalenderView;
 
 /**
  * Created by caowenhua on 2015/11/5.
  */
 public class TestActivity extends Activity {
 
-    TextView c;
-    Button b;
+    MouthCalenderView view_mouth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mouth_schedule);
+        view_mouth = (MouthCalenderView) findViewById(R.id.view_mouth);
 
-        ECrashHandler handler = new ECrashHandler(this);
-        Thread.setDefaultUncaughtExceptionHandler(handler);
-        setContentView(R.layout.activity_test);
-
-        c = (TextView) findViewById(R.id.tv);
-        c.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                b = (Button) findViewById(R.id.btn_1);
-                b.setText("Asdasdas");
-            }
-        });
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ScreenUtils.instance(this).getScreenWidth(),
+                ScreenUtils.instance(this).getScreenHeight()*4/5);
+        view_mouth.setLayoutParams(params);
     }
 }

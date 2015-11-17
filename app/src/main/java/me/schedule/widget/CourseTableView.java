@@ -115,7 +115,7 @@ public class CourseTableView extends View {
 
         paint.setColor(Color.parseColor("#c9cac6"));
         paint.setStrokeWidth(1);
-        paint.setTextSize(21);
+        paint.setTextSize(courseTextSize);
         canvas.drawLine(0, 0, 0, height, paint);
         for(int i = 0 ; i <= 7 ; i++){
             canvas.drawLine((1 + 2*i)*width/15, 0, (1 + 2*i)*width/15, height, paint);

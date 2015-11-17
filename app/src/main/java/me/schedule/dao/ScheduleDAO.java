@@ -3,7 +3,6 @@ package me.schedule.dao;
 import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -68,11 +67,6 @@ public class ScheduleDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
-    }
-
-    public List<ScheduleBean> getCurrent(){
-        QueryBuilder queryBuilder = dao.queryBuilder();
         return new ArrayList<>();
     }
 }

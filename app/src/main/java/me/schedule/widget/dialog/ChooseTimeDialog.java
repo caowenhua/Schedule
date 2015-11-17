@@ -206,25 +206,25 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
                 dismiss();
                 break;
             case R.id.btn_1:
-                refreshButton(0);
-                break;
-            case R.id.btn_2:
                 refreshButton(1);
                 break;
-            case R.id.btn_3:
+            case R.id.btn_2:
                 refreshButton(2);
                 break;
-            case R.id.btn_4:
+            case R.id.btn_3:
                 refreshButton(3);
                 break;
-            case R.id.btn_5:
+            case R.id.btn_4:
                 refreshButton(4);
                 break;
-            case R.id.btn_6:
+            case R.id.btn_5:
                 refreshButton(5);
                 break;
-            case R.id.btn_7:
+            case R.id.btn_6:
                 refreshButton(6);
+                break;
+            case R.id.btn_7:
+                refreshButton(0);
                 break;
             case R.id.img_cycle:
                 scheduleTimeBean.setIsCycle(!scheduleTimeBean.isCycle());
@@ -322,10 +322,10 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         if(cycle[0] && cycle[1] && cycle[2] && cycle[3] && cycle[4] && cycle[5] && cycle[6]){
             return "每天";
         }
-        else if(cycle[0] && cycle[1] && cycle[2] && cycle[3] && cycle[4] && !cycle[5] && !cycle[6]){
+        else if(cycle[5] && cycle[1] && cycle[2] && cycle[3] && cycle[4] && !cycle[0] && !cycle[6]){
             return "工作日";
         }
-        else if(!cycle[0] && !cycle[1] && !cycle[2] && !cycle[3] && !cycle[4] && cycle[5] && cycle[6]){
+        else if(!cycle[5] && !cycle[1] && !cycle[2] && !cycle[3] && !cycle[4] && cycle[0] && cycle[6]){
             return "周末";
         }
         else {
@@ -347,19 +347,19 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
 
     private String getDayByIndex(int index){
         switch (index){
-            case 0:
-                return "一";
             case 1:
-                return "二";
+                return "一";
             case 2:
-                return "三";
+                return "二";
             case 3:
-                return "四";
+                return "三";
             case 4:
-                return "五";
+                return "四";
             case 5:
-                return "六";
+                return "五";
             case 6:
+                return "六";
+            case 0:
                 return "日";
         }
         return "";

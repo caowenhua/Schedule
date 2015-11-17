@@ -11,7 +11,7 @@ public class SysApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        ECrashHandler eCrashHandler = new ECrashHandler(this);
-        Thread.setDefaultUncaughtExceptionHandler(eCrashHandler);
+//        ECrashHandler eCrashHandler = new ECrashHandler(this);
+//        Thread.setDefaultUncaughtExceptionHandler(eCrashHandler);
     }
 }

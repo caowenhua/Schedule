@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import me.schedule.R;
 import me.schedule.adapter.MainListAdapter;
-import me.schedule.dao.ScheduleDAO;
+import me.schedule.dao.ScheduleTimeDAO;
 
 /**
  * Created by caowenhua on 2015/11/5.
@@ -34,7 +34,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         assignViews();
 
-        ScheduleDAO dao = ScheduleDAO.getInstance(this);
+        ScheduleTimeDAO dao = ScheduleTimeDAO.getInstance(this);
         adapter = new MainListAdapter(dao.getCurrent(), this);
         lvList.setAdapter(adapter);
     }
