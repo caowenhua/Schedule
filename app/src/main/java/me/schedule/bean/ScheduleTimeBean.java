@@ -145,4 +145,22 @@ public class ScheduleTimeBean {
     public void setScheduleBean(ScheduleBean scheduleBean) {
         this.scheduleBean = scheduleBean;
     }
+
+    /**
+     * 0-6
+     * @param dayOfWeek
+     * @return
+     */
+    public boolean isInCycle(int dayOfWeek){
+        if(cycle.indexOf(dayOfWeek) != -1){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "id:" + id + ",iscycle:" + isCycle + ",hour:" + hour + ",min:" + minute + ",day:" + day
+                + ",mouth:" + mouth + ",year:" + year + ",cycle" + cycle;
+    }
 }

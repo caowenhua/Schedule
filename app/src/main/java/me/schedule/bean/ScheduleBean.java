@@ -110,4 +110,10 @@ public class ScheduleBean {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "id:" + id + ",event:" + event + ",name:" + name + ",isalarm:" + isAlarm +
+                ",remark:" + remark + ",detail" + detail;
+    }
 }
