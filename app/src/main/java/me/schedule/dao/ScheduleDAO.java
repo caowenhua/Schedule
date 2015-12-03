@@ -7,6 +7,7 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import me.schedule.bean.Mouth;
@@ -261,14 +262,51 @@ public class ScheduleDAO {
         return 30;
     }
 
-//    public ScheduleBean getRecent(){
-//        Calendar calendar = Calendar.getInstance();
-//        int day = calendar.get(Calendar.DAY_OF_MONTH);
-//        int mouth = calendar.get(Calendar.MONTH) + 1;
-//        int year = calendar.get(Calendar.YEAR);
-//        int min = calendar.get(Calendar.MINUTE);
-//        int sec = calendar.get(Calendar.SECOND);
-//
-//        int week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-//    }
+    public ScheduleBean getRecent(){
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int mouth = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+        int hour = calendar.get(Calendar.HOUR);
+        int min = calendar.get(Calendar.MINUTE);
+        int sec = calendar.get(Calendar.SECOND);
+
+        long time = System.currentTimeMillis();
+
+        int week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        long minValue = 0;
+        ScheduleBean scheduleBean = null;
+        List<ScheduleBean> list = new ArrayList<>();
+        try {
+            List<ScheduleBean> tmp = dao.queryForAll();
+            for (int i = 0; i < tmp.size(); i++) {
+                for (ScheduleTimeBean bean : tmp.get(i).getTimes()){
+                    if(!bean.isCycle()){
+                        Date date = new Date();
+                        date.setHours(hour);
+                        date.setYear(year);
+                        date.setMonth(mouth);
+                        date.setDate(day);
+                        date.setMinutes(min);
+                        date.setSeconds(sec);
+                        long t = date.getTime() - time;
+                        if(minValue == 0 && t > 0){
+                            minValue = t;
+                            scheduleBean = list.get(i);
+                        }
+                        else if(t > 0 && t < minValue){
+                            minValue = t;
+                            scheduleBean = list.get(i);
+                        }
+                    }
+                    else{
+                        
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return scheduleBean;
+    }
 }
