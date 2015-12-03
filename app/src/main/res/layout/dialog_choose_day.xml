@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_ff_con"
+    android:paddingBottom="20dp"
+    android:layout_margin="5dp">
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/x_main"
+        android:id="@+id/img_x"
+        android:layout_alignParentRight="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_x"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/llt"
+        >
+
+        <me.schedule.widget.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="150dp"
+            android:id="@+id/wheel_year"
+            />
+
+        <me.schedule.widget.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:id="@+id/wheel_mouth"
+            />
+
+        <me.schedule.widget.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:id="@+id/wheel_day"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/selector_bg_main_con"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text"
+        android:id="@+id/btn_commit"
+        android:layout_below="@+id/llt"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+</RelativeLayout>
