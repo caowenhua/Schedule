@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import me.schedule.R;
 import me.schedule.listener.OnMouthCalenderListener;
 import me.schedule.widget.MouthCalenderView;
@@ -25,6 +27,11 @@ public class MouthScheduleActivity extends Activity implements View.OnClickListe
         setContentView(R.layout.activity_mouth_schedule);
 
         assignViews();
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int mouth = calendar.get(Calendar.MONTH);
+        tvDate.setText(year + "." + mouth);
     }
 
     private void assignViews() {
@@ -50,6 +57,6 @@ public class MouthScheduleActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onMouthChange(int year, int mouth) {
-
+        tvDate.setText(year + "." + mouth);
     }
 }
