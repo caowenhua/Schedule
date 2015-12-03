@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import me.schedule.R;
@@ -84,7 +85,7 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
             ItemAddTime item = new ItemAddTime(getContext(), count);
             itemList.add(item);
             addView(item);
-            item.setData("day" + count, "time" + count);
+//            item.setData("day" + count, "time" + count);
             if(onTimeCreateListener != null){
                 onTimeCreateListener.onTimeCreate(count, item.getScheduleTimeBean());
             }
@@ -118,6 +119,16 @@ public class TimeManageView extends LinearLayout implements View.OnClickListener
             list.add(itemList.get(i).getScheduleTimeBean());
         }
         return list;
+    }
+
+    public void setScheduleTimeList(Collection<ScheduleTimeBean> list){
+        for (ScheduleTimeBean bean : list){
+            ItemAddTime item = new ItemAddTime(getContext(), count, bean);
+            itemList.add(item);
+            addView(item);
+            count++;
+            item.setOnTimeClickListener(activity);
+        }
     }
 
     public void setOnTimeCreateListener(OnTimeCreateListener onTimeCreateListener) {

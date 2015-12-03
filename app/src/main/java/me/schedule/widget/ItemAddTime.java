@@ -31,6 +31,23 @@ public class ItemAddTime extends RelativeLayout implements View.OnClickListener 
         init();
     }
 
+    public ItemAddTime(Context context, int id, ScheduleTimeBean scheduleTimeBean) {
+        super(context);
+        this.id = id;
+        this.scheduleTimeBean = scheduleTimeBean;
+
+        LayoutInflater.from(getContext()).inflate(R.layout.item_add_time, this);
+        assignViews();
+
+        if(scheduleTimeBean.isCycle()){
+            setData(scheduleTimeBean.getYear() + "." + scheduleTimeBean.getMouth() + "." +scheduleTimeBean.getDay(),
+                    scheduleTimeBean.getHour() + ":" + scheduleTimeBean.getMinute());
+        }
+        else{
+            setData(getCycleString(scheduleTimeBean.getDays()), scheduleTimeBean.getHour() + ":" + scheduleTimeBean.getMinute());
+        }
+    }
+
     public ItemAddTime(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -54,8 +71,17 @@ public class ItemAddTime extends RelativeLayout implements View.OnClickListener 
         scheduleTimeBean.setDay(Integer.parseInt(DateUtil.getDayByTime(time)));
         scheduleTimeBean.setHour(Integer.parseInt(DateUtil.getHourByTime(time)));
         scheduleTimeBean.setMinute(Integer.parseInt(DateUtil.getMinuteByTime(time)));
-        scheduleTimeBean.setDays(new boolean[]{true,true,true,true,true,false,false});
+        scheduleTimeBean.setDays(new boolean[]{true, true, true, true, true, false, false});
         scheduleTimeBean.setCycle("0,1,2,3,4");
+
+        if(scheduleTimeBean.isCycle()){
+            setData(scheduleTimeBean.getYear() + "." + scheduleTimeBean.getMouth() + "." +scheduleTimeBean.getDay(),
+                    scheduleTimeBean.getHour() + ":" + scheduleTimeBean.getMinute());
+        }
+        else{
+            setData(getCycleString(scheduleTimeBean.getDays()), scheduleTimeBean.getHour() + ":" + scheduleTimeBean.getMinute());
+        }
+
     }
 
     private void assignViews() {
@@ -104,5 +130,52 @@ public class ItemAddTime extends RelativeLayout implements View.OnClickListener 
                 }
                 break;
         }
+    }
+
+    private String getCycleString(boolean[] cycle){
+        if(cycle[0] && cycle[1] && cycle[2] && cycle[3] && cycle[4] && cycle[5] && cycle[6]){
+            return "每天";
+        }
+        else if(cycle[5] && cycle[1] && cycle[2] && cycle[3] && cycle[4] && !cycle[0] && !cycle[6]){
+            return "工作日";
+        }
+        else if(!cycle[5] && !cycle[1] && !cycle[2] && !cycle[3] && !cycle[4] && cycle[0] && cycle[6]){
+            return "周末";
+        }
+        else {
+            String cycleString = "";
+            boolean isFirst = true;
+            for (int i = 0; i < cycle.length; i++) {
+                if(cycle[i]){
+                    if(isFirst){
+                        cycleString = "每周" + getDayByIndex(i);
+                    }
+                    else{
+                        cycleString = "," + getDayByIndex(i);
+                    }
+                }
+            }
+            return cycleString;
+        }
+    }
+
+    private String getDayByIndex(int index){
+        switch (index){
+            case 1:
+                return "一";
+            case 2:
+                return "二";
+            case 3:
+                return "三";
+            case 4:
+                return "四";
+            case 5:
+                return "五";
+            case 6:
+                return "六";
+            case 0:
+                return "日";
+        }
+        return "";
     }
 }

@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import java.util.List;
+
 import me.schedule.R;
 import me.schedule.adapter.MainListAdapter;
+import me.schedule.bean.ScheduleBean;
 import me.schedule.dao.ScheduleDAO;
 
 /**
@@ -25,7 +29,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageView imgCourse;
 
     private MainListAdapter adapter;
-
+    private List<ScheduleBean> todayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +39,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
         assignViews();
 
         ScheduleDAO dao = ScheduleDAO.getInstance(this);
-        adapter = new MainListAdapter(dao.getToday(), this);
+        todayList = dao.getToday();
+        adapter = new MainListAdapter(todayList, this);
         lvList.setAdapter(adapter);
+        lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent add = new Intent(MainActivity.this, AddScheduleActivity.class);
+                add.putExtra("scheduleBean", todayList.get(position));
+                startActivity(add);
+            }
+        });
     }
 
 

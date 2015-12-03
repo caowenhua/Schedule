@@ -5,11 +5,13 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 /**
  * Created by caowenhua on 2015/11/4.
  */
 @DatabaseTable(tableName = "tb_Schedule")
-public class ScheduleBean {
+public class ScheduleBean implements Serializable{
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(columnName = "name")

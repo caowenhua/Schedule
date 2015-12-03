@@ -47,9 +47,17 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_add_schedule);
         assignViews();
 
-        isAlarm = true;
-        scheduleBean = new ScheduleBean();
-        scheduleBean.setIsAlarm(isAlarm);
+        if(getIntent().getSerializableExtra("scheduleBean") != null){
+            scheduleBean = (ScheduleBean) getIntent().getSerializableExtra("scheduleBean");
+            isAlarm = scheduleBean.isAlarm();
+            lltTime.setScheduleTimeList(scheduleBean.getTimes());
+            rltMatter.setMatter(scheduleBean.getEvent());
+        }
+        else{
+            isAlarm = true;
+            scheduleBean = new ScheduleBean();
+            scheduleBean.setIsAlarm(isAlarm);
+        }
     }
 
     private void assignViews() {

@@ -114,7 +114,7 @@ public class MouthCalenderView extends View {
                 int column = (int) (event.getY() / eachWidth);
                 if(clickRow == row && clickColumn == column){
                     if(onMouthCalenderListener != null){
-                        onMouthCalenderListener.onDayClick();
+                        onMouthCalenderListener.onDayClick(year, mouth, getDayBySize(row, column, dayOfWeek));
                     }
                 }
                 if(row - clickRow >= 2 || column - clickColumn >= 2){
@@ -124,6 +124,9 @@ public class MouthCalenderView extends View {
                     }
                     else{
                         mouth --;
+                    }
+                    if(onMouthCalenderListener != null){
+                        onMouthCalenderListener.onMouthChange(year, mouth);
                     }
                     getDayCount();
                     invalidate();
@@ -135,6 +138,9 @@ public class MouthCalenderView extends View {
                     }
                     else{
                         mouth++;
+                    }
+                    if(onMouthCalenderListener != null){
+                        onMouthCalenderListener.onMouthChange(year, mouth);
                     }
                     getDayCount();
                     invalidate();
@@ -247,5 +253,9 @@ public class MouthCalenderView extends View {
 
     private int getDayBySize(int row,int column, int dayOfWeek){
         return row * 7 + column - dayOfWeek + 1;
+    }
+
+    public void setOnMouthCalenderListener(OnMouthCalenderListener onMouthCalenderListener) {
+        this.onMouthCalenderListener = onMouthCalenderListener;
     }
 }

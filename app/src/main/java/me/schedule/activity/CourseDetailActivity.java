@@ -105,6 +105,7 @@ public class CourseDetailActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if(imgBack == v){
+            setResult(11);
             finish();
         }
         else{
@@ -118,6 +119,7 @@ public class CourseDetailActivity extends Activity implements View.OnClickListen
                 public void onButtonClick() {
                     CourseDAO dao = new CourseDAO(CourseDetailActivity.this);
                     dao.delete(bean);
+                    setResult(11);
                     finish();
                 }
             });

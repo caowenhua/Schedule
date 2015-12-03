@@ -79,7 +79,7 @@ public class CourseActivity extends Activity implements View.OnClickListener, On
             }
             Intent intent = new Intent(this, CourseDetailActivity.class);
             intent.putExtra("bean", bean);
-            startActivity(intent);
+            startActivityForResult(intent, 10);
         }
         else{
             AddCourseDialog addCourseDialog = new AddCourseDialog(this, row, column);
@@ -89,6 +89,16 @@ public class CourseActivity extends Activity implements View.OnClickListener, On
                     viewCoursetable.invalidate();
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 10){
+            CourseDAO dao = new CourseDAO(this);
+            list = dao.getAll();
+            viewCoursetable.setCourseBeanList(list);
         }
     }
 }

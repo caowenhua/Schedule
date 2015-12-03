@@ -36,16 +36,10 @@
         <activity android:name=".activity.CourseDetailActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.DayScheduleActivity"
-            android:screenOrientation="portrait"/>
-
         <activity android:name=".activity.MouthScheduleActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.ScheduleActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".activity.ScheduleDetailActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.SettingActivity"

@@ -3,11 +3,13 @@ package me.schedule.bean;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 /**
  * Created by caowenhua on 2015/11/5.
  */
 @DatabaseTable(tableName = "tb_ScheduleTime")
-public class ScheduleTimeBean {
+public class ScheduleTimeBean implements Serializable{
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(columnName = "isCycle")
