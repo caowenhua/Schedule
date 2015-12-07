@@ -85,14 +85,11 @@ public class ECrashHandler implements Thread.UncaughtExceptionHandler {
         stringBuffer.append("MODEL:" + Build.MODEL + "\n");
         stringBuffer.append("RELEASE:" + Build.VERSION.RELEASE + "\n");
         stringBuffer.append("radio:" + Build.getRadioVersion() + "\n");
-        stringBuffer.append("CPU_ABI:" + Build.CPU_ABI + "\n");
-        stringBuffer.append("CPU_ABI2:" + Build.CPU_ABI2 + "\n");
-        stringBuffer.append("DISPLAY:" + Build.DISPLAY + "\n");
 
 
         Log.e("eExpetion", stringBuffer.toString());
 
-        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/eclog.txt");
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/schedultlog.txt");
         try {
             FileOutputStream stream = new FileOutputStream(file, true);
             stream.write("\n\n\n".getBytes());

@@ -42,8 +42,6 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
     private DayWheelAdapter dayAdapter;
     private IntegerWheelAdapter mouthAdapter;
 
-//    private CheckBox check_cycle;
-//    private CheckBox check_single;
     private ImageView img_cycle;
     private ImageView img_single;
     private View view_mask;
