@@ -283,12 +283,11 @@ public class ScheduleDAO {
                 for (ScheduleTimeBean bean : tmp.get(i).getTimes()){
                     if(!bean.isCycle()){
                         Date date = new Date();
-                        date.setHours(hour);
-                        date.setYear(year);
-                        date.setMonth(mouth);
-                        date.setDate(day);
-                        date.setMinutes(min);
-                        date.setSeconds(sec);
+                        date.setHours(bean.getHour());
+                        date.setYear(bean.getYear());
+                        date.setMonth(bean.getMouth());
+                        date.setDate(bean.getDay());
+                        date.setMinutes(bean.getMinute());
                         long t = date.getTime() - time;
                         if(minValue == 0 && t > 0){
                             minValue = t;
@@ -300,7 +299,58 @@ public class ScheduleDAO {
                         }
                     }
                     else{
-                        
+                        long value = 0;
+                        boolean[] days = bean.getDays();
+                        for (int j = 0; j < 7; j++) {
+                            if(week + j > 6){
+                                if(days[week + j - 7]){
+                                    if(j == 0){
+                                        if(hour < bean.getHour()){
+                                            value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
+                                            break;
+                                        }
+                                        if(hour == bean.getHour()){
+                                            if(min < bean.getMinute()){
+                                                value += (bean.getMinute() - min) * 60 * 1000;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        value += j * 24 * 60 * 60 * 1000;
+                                        break;
+                                    }
+                                }
+                            }
+                            else{
+                                if(days[week + j]){
+                                    if(j == 0){
+                                        if(hour < bean.getHour()){
+                                            value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
+                                            break;
+                                        }
+                                        if(hour == bean.getHour()){
+                                            if(min < bean.getMinute()){
+                                                value += (bean.getMinute() - min) * 60 * 1000;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        value += j * 24 * 60 * 1000;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if(minValue == 0 && value > 0){
+                            minValue = value;
+                            scheduleBean = list.get(i);
+                        }
+                        else if(minValue > 0 && value < minValue){
+                            minValue = value;
+                            scheduleBean = list.get(i);
+                        }
                     }
                 }
             }

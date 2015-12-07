@@ -6,6 +6,8 @@ import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by caowenhua on 2015/11/4.
@@ -117,5 +119,85 @@ public class ScheduleBean implements Serializable{
     public String toString() {
         return "id:" + id + ",event:" + event + ",name:" + name + ",isalarm:" + isAlarm +
                 ",remark:" + remark + ",detail" + detail;
+    }
+
+    public long getRecentTime(){
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR);
+        int min = calendar.get(Calendar.MINUTE);
+        int week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+
+        long time = System.currentTimeMillis();
+        long minValue = 0;
+        for (ScheduleTimeBean bean : times){
+            if(bean.isCycle()){
+                Date date = new Date();
+                date.setHours(bean.getHour());
+                date.setYear(bean.getYear());
+                date.setMonth(bean.getMouth());
+                date.setDate(bean.getDay());
+                date.setMinutes(bean.getMinute());
+                long t = date.getTime() - time;
+                if(minValue == 0 && t > 0){
+                    minValue = t;
+                }
+                else if(t > 0 && t < minValue){
+                    minValue = t;
+                }
+            }
+            else{
+                long value = 0;
+                boolean[] days = bean.getDays();
+                for (int j = 0; j < 7; j++) {
+                    if(week + j > 6){
+                        if(days[week + j - 7]){
+                            if(j == 0){
+                                if(hour < bean.getHour()){
+                                    value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
+                                    break;
+                                }
+                                if(hour == bean.getHour()){
+                                    if(min < bean.getMinute()){
+                                        value += (bean.getMinute() - min) * 60 * 1000;
+                                        break;
+                                    }
+                                }
+                            }
+                            else{
+                                value += j * 24 * 60 * 60 * 1000;
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        if(days[week + j]){
+                            if(j == 0){
+                                if(hour < bean.getHour()){
+                                    value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
+                                    break;
+                                }
+                                if(hour == bean.getHour()){
+                                    if(min < bean.getMinute()){
+                                        value += (bean.getMinute() - min) * 60 * 1000;
+                                        break;
+                                    }
+                                }
+                            }
+                            else{
+                                value += j * 24 * 60 * 1000;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if(minValue == 0 && value > 0){
+                    minValue = value;
+                }
+                else if(minValue > 0 && value < minValue){
+                    minValue = value;
+                }
+            }
+        }
+        return minValue;
     }
 }
