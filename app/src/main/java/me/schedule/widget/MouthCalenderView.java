@@ -9,8 +9,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Calendar;
+import java.util.List;
 
 import me.schedule.R;
+import me.schedule.bean.Mouth;
 import me.schedule.listener.OnMouthCalenderListener;
 
 /**
@@ -37,6 +39,8 @@ public class MouthCalenderView extends View {
     private int blue;
     private int green;
     private int gray;
+
+    private List<Mouth> data;
 
     private OnMouthCalenderListener onMouthCalenderListener;
 
@@ -167,6 +171,7 @@ public class MouthCalenderView extends View {
 //        Log.e("columnCount","columnCount:"+columnCount);
 
         drawBackground(columnCount, canvas);
+        drawEventBackground(canvas);
         drawText(dayOfWeek, canvas);
 
     }
@@ -174,7 +179,7 @@ public class MouthCalenderView extends View {
     private void drawBackground(int columnCount, Canvas canvas){
 
         paint.setColor(Color.parseColor("#e5e5e5"));
-        canvas.drawRect(eachWidth/2, 3 * eachWidth, 7.5f * eachWidth, (3 + columnCount) * eachWidth, paint);
+        canvas.drawRect(eachWidth / 2, 3 * eachWidth, 7.5f * eachWidth, (3 + columnCount) * eachWidth, paint);
 
         paint.setColor(Color.parseColor("#a0a0a0"));
         for (int i = 0; i < columnCount + 1; i++) {
@@ -184,8 +189,33 @@ public class MouthCalenderView extends View {
             canvas.drawLine((i+0.5f)*eachWidth, 3*eachWidth , (i+0.5f)*eachWidth, (3+columnCount)*eachWidth, paint);
         }
 
+    }
 
-
+    private void drawEventBackground(Canvas canvas){
+        if(data != null){
+            for (int i = 0; i < data.size(); i++) {
+                switch (data.get(i).getMaxevent()){
+                    case 1:
+                        paint.setColor(gray);
+                        break;
+                    case 2:
+                        paint.setColor(green);
+                        break;
+                    case 3:
+                        paint.setColor(blue);
+                        break;
+                    case 4:
+                        paint.setColor(orange);
+                        break;
+                    case 5:
+                        paint.setColor(red);
+                        break;
+                }
+                if(data.get(i).getMaxevent() > 0){
+                    drawRectByDay(canvas, data.get(i).getDay());
+                }
+            }
+        }
     }
 
     private void drawText(int day, Canvas canvas){
@@ -251,11 +281,34 @@ public class MouthCalenderView extends View {
         }
     }
 
+    private void drawRectByDay(Canvas canvas, int day){
+        int row = (day + dayOfWeek - 2) / 7;
+        int column = (day + dayOfWeek - 2) % 7;
+        canvas.drawRect((column+0.5f)*eachWidth, (row+3)*eachWidth,
+                (column+1.5f)*eachWidth, (row+4)*eachWidth, paint);
+
+
+//        for (int i = 0; i < columnCount + 1; i++) {//heng
+//            canvas.drawLine(eachWidth/2, (3+i)*eachWidth, 7.5f*eachWidth, (3+i)*eachWidth, paint);
+//        }
+//        for (int i = 0; i < 8; i++) {//shu
+//            canvas.drawLine((i+0.5f)*eachWidth, 3*eachWidth , (i+0.5f)*eachWidth, (3+columnCount)*eachWidth, paint);
+//        }
+    }
+
     private int getDayBySize(int row,int column, int dayOfWeek){
         return row * 7 + column - dayOfWeek + 1;
     }
 
     public void setOnMouthCalenderListener(OnMouthCalenderListener onMouthCalenderListener) {
         this.onMouthCalenderListener = onMouthCalenderListener;
+    }
+
+    public void setData(List<Mouth> data) {
+        this.data = data;
+//        for (int i = 0; i < data.size(); i++) {
+//            Log.e("data" + i , data.get(i).toString() + "   **");
+//        }
+        invalidate();
     }
 }

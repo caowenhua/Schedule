@@ -39,7 +39,7 @@ public class ItemAddTime extends RelativeLayout implements View.OnClickListener 
         LayoutInflater.from(getContext()).inflate(R.layout.item_add_time, this);
         assignViews();
 
-        if(scheduleTimeBean.isCycle()){
+        if(!scheduleTimeBean.isCycle()){
             setData(scheduleTimeBean.getYear() + "." + scheduleTimeBean.getMouth() + "." +scheduleTimeBean.getDay(),
                     scheduleTimeBean.getHour() + ":" + scheduleTimeBean.getMinute());
         }

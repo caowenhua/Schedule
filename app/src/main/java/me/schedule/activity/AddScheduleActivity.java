@@ -13,6 +13,7 @@ import me.schedule.R;
 import me.schedule.bean.ScheduleBean;
 import me.schedule.bean.ScheduleTimeBean;
 import me.schedule.dao.ScheduleDAO;
+import me.schedule.dao.ScheduleTimeDAO;
 import me.schedule.listener.OnMatterListener;
 import me.schedule.listener.OnTimeChooseListener;
 import me.schedule.listener.OnTimeClickListener;
@@ -49,9 +50,14 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
 
         if(getIntent().getSerializableExtra("scheduleBean") != null){
             scheduleBean = (ScheduleBean) getIntent().getSerializableExtra("scheduleBean");
+            ScheduleDAO dao = ScheduleDAO.getInstance(this);
+            dao.refresh(scheduleBean);
             isAlarm = scheduleBean.isAlarm();
             lltTime.setScheduleTimeList(scheduleBean.getTimes());
             rltMatter.setMatter(scheduleBean.getEvent());
+            edtName.setText(scheduleBean.getName());
+            edtDetail.setText(scheduleBean.getDetail());
+            edtRemark.setText(scheduleBean.getRemark());
         }
         else{
             isAlarm = true;
@@ -100,10 +106,6 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
                     Toast.makeText(this, "请先设定时间", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    List<ScheduleTimeBean> scheduleTimeBeanList = lltTime.getScheduleTimeList();
-                    for (int i = 0; i < scheduleTimeBeanList.size(); i++) {
-                        scheduleTimeBeanList.get(i).setScheduleBean(scheduleBean);
-                    }
                     scheduleBean.setEvent(event);
 //                    scheduleBean.setTimes(lltTime.getScheduleTimeList());
                     scheduleBean.setDetail(edtDetail.getText().length() == 0 ? "" : edtDetail.getText().toString());
@@ -111,6 +113,12 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
                     scheduleBean.setRemark(edtRemark.getText().length() == 0 ? "" : edtRemark.getText().toString());
                     ScheduleDAO dao = ScheduleDAO.getInstance(this);
                     dao.add(scheduleBean);
+                    List<ScheduleTimeBean> scheduleTimeBeanList = lltTime.getScheduleTimeList();
+                    ScheduleTimeDAO timeDAO = ScheduleTimeDAO.getInstance(this);
+                    for (int i = 0; i < scheduleTimeBeanList.size(); i++) {
+                        scheduleTimeBeanList.get(i).setScheduleBean(scheduleBean);
+                        timeDAO.add(scheduleTimeBeanList.get(i));
+                    }
                     Toast.makeText(this, "添加时间成功", Toast.LENGTH_SHORT).show();
                     finish();
                 }

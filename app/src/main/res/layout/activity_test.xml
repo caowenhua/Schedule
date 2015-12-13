@@ -19,6 +19,7 @@
                 android:id="@+id/add"
                 android:text="add"
                 android:padding="10dp"
+                android:visibility="gone"
                 />
 
             <Button

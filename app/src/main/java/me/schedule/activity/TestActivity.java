@@ -94,7 +94,7 @@ public class TestActivity extends Activity implements View.OnClickListener{
             List<ScheduleBean> l = dao.getAll();
             s.append("--all--");
             for (int i = 0; i < l.size(); i++) {
-                s.append("\n\n\n\n" + l.get(i).getName() + "\n");
+                s.append("\n\n" + l.get(i).getName() + "    ->have times:" + l.get(i).getTimes().size() + "\n");
                 for(ScheduleTimeBean b : l.get(i).getTimes()){
                     s.append(b.toString() + "\n");
                 }

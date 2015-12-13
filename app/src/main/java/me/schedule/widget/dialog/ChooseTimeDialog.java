@@ -46,7 +46,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
     private ImageView img_single;
     private View view_mask;
     private Button[] buttons;
-    private int[] days;
+//    private int[] days;
     private boolean[] cycle;
 
     private ScheduleTimeBean scheduleTimeBean;
@@ -112,7 +112,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
     private void init() {
         cycle = scheduleTimeBean.getDays();
         buttons = new Button[]{btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7};
-        days = new int[]{};
+//        days = new int[]{};
 //        check_single.setIsChecked(true);
 
         hourAdapter = new IntegerWheelAdapter(0, 23);
@@ -120,7 +120,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_hour.setLabel("时");
         wheel_hour.setCyclic(true);
         wheel_hour.setVisibleItems(5);
-        wheel_hour.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_hour.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/6;
         wheel_hour.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
@@ -134,7 +134,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_min.setLabel("分");
         wheel_min.setCyclic(true);
         wheel_min.setVisibleItems(5);
-        wheel_min.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_min.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/6;
         wheel_min.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
@@ -148,7 +148,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_year.setLabel("年");
         wheel_year.setCyclic(true);
         wheel_year.setVisibleItems(5);
-        wheel_year.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_year.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/6;
         wheel_year.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
@@ -165,7 +165,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_mouth.setLabel("月");
         wheel_mouth.setCyclic(true);
         wheel_mouth.setVisibleItems(5);
-        wheel_mouth.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_mouth.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/6;
         wheel_mouth.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
@@ -182,7 +182,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         wheel_day.setLabel("日");
         wheel_day.setCyclic(true);
         wheel_day.setVisibleItems(5);
-        wheel_day.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_day.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/6;
         wheel_day.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
@@ -192,6 +192,15 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
         });
 
         refreshStatus();
+
+        for (int i = 0; i < cycle.length; i++) {
+            if(cycle[i]){
+                buttons[i].setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.bg_main_circle));
+            }
+            else{
+                buttons[i].setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.bg_a1_circle));
+            }
+        }
     }
 
     @Override
@@ -204,25 +213,25 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
                 dismiss();
                 break;
             case R.id.btn_1:
-                refreshButton(1);
+                refreshButton(0);
                 break;
             case R.id.btn_2:
-                refreshButton(2);
+                refreshButton(1);
                 break;
             case R.id.btn_3:
-                refreshButton(3);
+                refreshButton(2);
                 break;
             case R.id.btn_4:
-                refreshButton(4);
+                refreshButton(3);
                 break;
             case R.id.btn_5:
-                refreshButton(5);
+                refreshButton(4);
                 break;
             case R.id.btn_6:
-                refreshButton(6);
+                refreshButton(5);
                 break;
             case R.id.btn_7:
-                refreshButton(0);
+                refreshButton(6);
                 break;
             case R.id.img_cycle:
                 scheduleTimeBean.setIsCycle(!scheduleTimeBean.isCycle());
@@ -332,10 +341,10 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
             for (int i = 0; i < cycle.length; i++) {
                 if(cycle[i]){
                     if(isFirst){
-                        cycleString = "每周" + getDayByIndex(i);
+                        cycleString = cycleString + "每周" + getDayByIndex(i);
                     }
                     else{
-                        cycleString = "," + getDayByIndex(i);
+                        cycleString = cycleString + "," + getDayByIndex(i);
                     }
                 }
             }

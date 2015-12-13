@@ -45,9 +45,23 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_schedule);
 
         assignViews();
-
         ScheduleDAO dao = ScheduleDAO.getInstance(this);
-        list = dao.getToday();
+
+        if(getIntent().getIntExtra("year", -1) == -1){
+            list = dao.getToday();
+            Calendar calendar = Calendar.getInstance();
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+            mouth = calendar.get(Calendar.MONTH) + 1;
+            year = calendar.get(Calendar.YEAR);
+        }
+        else{
+            year = getIntent().getIntExtra("year", 2015);
+            mouth = getIntent().getIntExtra("mouth", 12);
+            day = getIntent().getIntExtra("day", 1);
+            list = dao.getDay(year, mouth, day);
+        }
+
+        tvDate.setText(year + "." + mouth + "." + day);
         adapter = new MainListAdapter(list, this);
         lvList.setAdapter(adapter);
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,12 +72,6 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
                 startActivity(add);
             }
         });
-
-        Calendar calendar = Calendar.getInstance();
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        mouth = calendar.get(Calendar.MONTH) + 1;
-        year = calendar.get(Calendar.YEAR);
-        tvDate.setText(year + "." + mouth + "." + day);
     }
 
 
@@ -90,18 +98,21 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
                 public void onButtonClick() {
                     Intent intent = new Intent(ScheduleActivity.this, MouthScheduleActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }, new OnButtonClickListener() {
                 @Override
                 public void onButtonClick() {
                     Intent intent = new Intent(ScheduleActivity.this, WeekScheduleActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }, new OnButtonClickListener() {
                 @Override
                 public void onButtonClick() {
                     Intent intent = new Intent(ScheduleActivity.this, AddScheduleActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
         }

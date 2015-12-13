@@ -8,11 +8,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:text="按月查看"
+        android:text="查看详情"
         android:textSize="@dimen/text"
         android:textColor="@color/white"
         android:background="@drawable/selector_bg_main"
-        android:id="@+id/tv_mouth"
+        android:id="@+id/tv_detail"
         />
 
     <View
@@ -27,29 +27,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:text="按周查看"
+        android:text="删除信息"
         android:textSize="@dimen/text"
         android:textColor="@color/white"
         android:background="@drawable/selector_bg_main"
-        android:id="@+id/tv_week"
-        />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/col_e5"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:id="@+id/tv_del"
         />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="添加"
-        android:textSize="@dimen/text"
-        android:textColor="@color/white"
-        android:background="@drawable/selector_bg_main"
-        android:gravity="center_horizontal"
-        android:id="@+id/tv_add"
-        />
 </LinearLayout>

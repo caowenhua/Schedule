@@ -14,6 +14,8 @@ import me.schedule.R;
 import me.schedule.adapter.MainListAdapter;
 import me.schedule.bean.ScheduleBean;
 import me.schedule.dao.ScheduleDAO;
+import me.schedule.listener.OnButtonClickListener;
+import me.schedule.widget.dialog.MainClickDialog;
 
 /**
  * Created by caowenhua on 2015/11/5.
@@ -30,6 +32,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private MainListAdapter adapter;
     private List<ScheduleBean> todayList;
+    private ScheduleDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +41,30 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         assignViews();
 
-        ScheduleDAO dao = ScheduleDAO.getInstance(this);
+        dao = ScheduleDAO.getInstance(this);
         todayList = dao.getToday();
         adapter = new MainListAdapter(todayList, this);
         lvList.setAdapter(adapter);
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent add = new Intent(MainActivity.this, AddScheduleActivity.class);
-                add.putExtra("scheduleBean", todayList.get(position));
-                startActivity(add);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                MainClickDialog mainClickDialog = new MainClickDialog(MainActivity.this,
+                        new OnButtonClickListener() {
+                            @Override
+                            public void onButtonClick() {
+                                Intent add = new Intent(MainActivity.this, AddScheduleActivity.class);
+                                add.putExtra("scheduleBean", todayList.get(position));
+                                startActivity(add);
+                            }
+                        },
+                        new OnButtonClickListener() {
+                            @Override
+                            public void onButtonClick() {
+                                dao.delete(todayList.get(position));
+                                todayList.remove(position);
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
             }
         });
     }
@@ -77,6 +94,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(setting);
                 break;
             case R.id.img_tick:
+                Intent testing = new Intent(this, TestActivity.class);
+                startActivity(testing);
                 break;
             case R.id.img_schedule:
                 Intent schedule = new Intent(this, ScheduleActivity.class);

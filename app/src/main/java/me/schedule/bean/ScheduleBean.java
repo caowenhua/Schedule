@@ -7,7 +7,6 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by caowenhua on 2015/11/4.
@@ -130,14 +129,10 @@ public class ScheduleBean implements Serializable{
         long time = System.currentTimeMillis();
         long minValue = 0;
         for (ScheduleTimeBean bean : times){
-            if(bean.isCycle()){
-                Date date = new Date();
-                date.setHours(bean.getHour());
-                date.setYear(bean.getYear());
-                date.setMonth(bean.getMouth());
-                date.setDate(bean.getDay());
-                date.setMinutes(bean.getMinute());
-                long t = date.getTime() - time;
+            if(!bean.isCycle()){
+                calendar.set(bean.getYear(), bean.getMouth() - 1, bean.getDay(), bean.getHour(), bean.getMinute());
+                long t = calendar.getTimeInMillis() - time;
+//                Log.e("----", t + "---" + calendar.getTimeInMillis() + "---" + time + "--");
                 if(minValue == 0 && t > 0){
                     minValue = t;
                 }
@@ -165,6 +160,7 @@ public class ScheduleBean implements Serializable{
                             }
                             else{
                                 value += j * 24 * 60 * 60 * 1000;
+                                value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
                                 break;
                             }
                         }
@@ -185,6 +181,7 @@ public class ScheduleBean implements Serializable{
                             }
                             else{
                                 value += j * 24 * 60 * 1000;
+                                value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
                                 break;
                             }
                         }

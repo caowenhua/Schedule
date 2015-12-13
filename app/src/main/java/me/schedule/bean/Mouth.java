@@ -31,4 +31,9 @@ public class Mouth {
     public void setMaxevent(int maxevent) {
         this.maxevent = maxevent;
     }
+
+    @Override
+    public String toString() {
+        return "day:" + day + ",isin:" + isIn + ",maxevebt" + maxevent;
+    }
 }

@@ -125,5 +125,6 @@ public class MatterEventView extends RelativeLayout implements View.OnClickListe
 
     public void setMatter(int matter) {
         this.matter = matter;
+        refresh();
     }
 }

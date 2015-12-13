@@ -61,19 +61,19 @@ public class MainListAdapter extends BaseAdapter {
         holder.tvRemark.setText(scheduleBeanList.get(position).getRemark());
 
         switch (scheduleBeanList.get(position).getEvent()){
-            case 0:
+            case 1:
                 holder.rlt.setBackgroundResource(R.drawable.bg_text_con);
                 break;
-            case 1:
+            case 2:
                 holder.rlt.setBackgroundResource(R.drawable.bg_green_con);
                 break;
-            case 2:
+            case 3:
                 holder.rlt.setBackgroundResource(R.drawable.bg_blue_con);
                 break;
-            case 3:
+            case 4:
                 holder.rlt.setBackgroundResource(R.drawable.bg_orange_con);
                 break;
-            case 4:
+            case 5:
                 holder.rlt.setBackgroundResource(R.drawable.bg_red_con);
                 break;
         }

@@ -86,7 +86,9 @@ public class CourseActivity extends Activity implements View.OnClickListener, On
             addCourseDialog.setAddSuccessListener(new OnAddSuccessListener() {
                 @Override
                 public void success() {
-                    viewCoursetable.invalidate();
+                    CourseDAO dao = new CourseDAO(CourseActivity.this);
+                    list = dao.getAll();
+                    viewCoursetable.setCourseBeanList(list);
                 }
             });
         }

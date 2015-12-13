@@ -32,7 +32,7 @@
             android:layout_height="40dp"
             android:layout_margin="1dp"
             android:background="@drawable/bg_main_circle"
-            android:text="一"
+            android:text="日"
             android:textColor="@color/white" />
 
         <Button
@@ -41,7 +41,7 @@
             android:layout_height="40dp"
             android:layout_margin="1dp"
             android:background="@drawable/bg_main_circle"
-            android:text="二"
+            android:text="一"
             android:textColor="@color/white"
             android:layout_toRightOf="@+id/btn_1"/>
 
@@ -51,7 +51,7 @@
             android:layout_height="40dp"
             android:layout_margin="1dp"
             android:background="@drawable/bg_main_circle"
-            android:text="三"
+            android:text="二"
             android:textColor="@color/white"
             android:layout_toRightOf="@+id/btn_2" />
 
@@ -61,7 +61,7 @@
             android:layout_height="40dp"
             android:layout_margin="1dp"
             android:background="@drawable/bg_main_circle"
-            android:text="四"
+            android:text="三"
             android:textColor="@color/white"
             android:layout_toRightOf="@+id/btn_3" />
 
@@ -71,7 +71,7 @@
             android:layout_height="40dp"
             android:layout_margin="1dp"
             android:background="@drawable/bg_main_circle"
-            android:text="五"
+            android:text="四"
             android:textColor="@color/white"
             android:layout_toRightOf="@+id/btn_4" />
 
@@ -81,7 +81,7 @@
             android:layout_height="40dp"
             android:layout_margin="1dp"
             android:background="@drawable/bg_a1_circle"
-            android:text="六"
+            android:text="五"
             android:textColor="@color/white"
             android:layout_toRightOf="@+id/btn_5"/>
 
@@ -91,7 +91,7 @@
             android:layout_height="40dp"
             android:layout_margin="1dp"
             android:background="@drawable/bg_a1_circle"
-            android:text="日"
+            android:text="六"
             android:textColor="@color/white"
             android:layout_toRightOf="@+id/btn_6" />
 

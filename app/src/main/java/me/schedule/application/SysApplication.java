@@ -6,13 +6,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.NotificationCompat;
-
-import java.io.IOException;
 
 import me.schedule.R;
 import me.schedule.activity.MainActivity;
@@ -27,13 +23,14 @@ public class SysApplication extends Application {
     private NotificationManager notificationManager;
     private final int NOTIFICATION_ID = 49;
     private ScheduleBean scheduleBean;
-    private MediaPlayer mediaPlayer;
+//    private MediaPlayer mediaPlayer;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        prepareRecent();
 
 //        ECrashHandler eCrashHandler = new ECrashHandler(this);
 //        Thread.setDefaultUncaughtExceptionHandler(eCrashHandler);
@@ -43,33 +40,31 @@ public class SysApplication extends Application {
         ScheduleDAO dao = ScheduleDAO.getInstance(this);
         scheduleBean = dao.getRecent();
         if(scheduleBean != null){
-//            handler.postDelayed(new RecentScheduleRunnable(), 2000);
+            handler.postDelayed(new RecentScheduleRunnable(), scheduleBean.getRecentTime());
         }
     }
 
     private class RecentScheduleRunnable implements Runnable {
         @Override
         public void run() {
-            //TODO
             sendNotification();
             prepareRecent();
-//            handler.postDelayed(this, 2000);
         }
     }
 
-    private void playRing(){
-        if(mediaPlayer == null){
-            mediaPlayer = new MediaPlayer();
-        }
-        Uri uri = Uri.parse("android.resource://" + getPackageName() +"/"+ R.raw.ringer);
-        try {
-            mediaPlayer.setDataSource(this, uri);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void playRing(){
+//        if(mediaPlayer == null){
+//            mediaPlayer = new MediaPlayer();
+//        }
+//        Uri uri = Uri.parse("android.resource://" + getPackageName() +"/"+ R.raw.ringer);
+//        try {
+//            mediaPlayer.setDataSource(this, uri);
+//            mediaPlayer.prepare();
+//            mediaPlayer.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void sendNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
@@ -82,7 +77,10 @@ public class SysApplication extends Application {
         builder.setContentTitle("你有一个新代办事项")
                 .setSmallIcon(getApplicationInfo().icon)
                 .setContentIntent(pendingIntent)
-                .setDefaults(Notification.DEFAULT_ALL).setAutoCancel(true);
+//                .setDefaults(Notification.DEFAULT_ALL)
+                .setShowWhen(true)
+                .setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.ringer))
+                .setAutoCancel(true);
         builder.setTicker("新代办事项提示");
 
         Notification notification = builder.build();
@@ -92,10 +90,5 @@ public class SysApplication extends Application {
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-        }
-    };
+    private Handler handler = new Handler();
 }
