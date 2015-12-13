@@ -142,7 +142,7 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
 
     @Override
     public void onDayClick(int id, ScheduleTimeBean bean) {
-
+        ChooseTimeDialog dialog = new ChooseTimeDialog(this, lltTime.getItemById(id).getScheduleTimeBean());
     }
 
     @Override

@@ -63,11 +63,15 @@ public class MouthScheduleActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onDayClick(int year, int mouth, int day) {
-        Intent intent = new Intent(this, ScheduleActivity.class);
-        intent.putExtra("year", year);
-        intent.putExtra("mouth", mouth);
-        intent.putExtra("day", day);
-        startActivity(intent);
+//        Log.e("ondayclick", year + "***" + mouth + "***" + day);
+        if(day > 0){
+            Intent intent = new Intent(this, ScheduleActivity.class);
+            intent.putExtra("year", year);
+            intent.putExtra("mouth", mouth);
+            intent.putExtra("day", day);
+            startActivity(intent);
+        }
+
     }
 
     @Override

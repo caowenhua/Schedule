@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.schedule.R;
@@ -42,7 +43,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         assignViews();
 
         dao = ScheduleDAO.getInstance(this);
-        todayList = dao.getToday();
+        todayList = new ArrayList<>();
+//        todayList = dao.getToday();
         adapter = new MainListAdapter(todayList, this);
         lvList.setAdapter(adapter);
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,6 +71,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        todayList.clear();
+        todayList.addAll(dao.getToday());
+        adapter.notifyDataSetChanged();
+    }
 
     private void assignViews() {
         imgSetting = (ImageView) findViewById(R.id.img_setting);

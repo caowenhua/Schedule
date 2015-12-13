@@ -19,6 +19,7 @@ import me.schedule.dao.ScheduleDAO;
 import me.schedule.listener.OnButtonClickListener;
 import me.schedule.listener.OnDateChangeListener;
 import me.schedule.widget.dialog.ChooseDayDialog;
+import me.schedule.widget.dialog.MainClickDialog;
 import me.schedule.widget.dialog.ScheduleMoreDialog;
 
 /**
@@ -38,6 +39,7 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
     private int year;
     private int mouth;
     private int day;
+    private ScheduleDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_schedule);
 
         assignViews();
-        ScheduleDAO dao = ScheduleDAO.getInstance(this);
+        dao = ScheduleDAO.getInstance(this);
 
         if(getIntent().getIntExtra("year", -1) == -1){
             list = dao.getToday();
@@ -66,10 +68,24 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
         lvList.setAdapter(adapter);
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent add = new Intent(ScheduleActivity.this, AddScheduleActivity.class);
-                add.putExtra("scheduleBean", list.get(position));
-                startActivity(add);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                MainClickDialog mainClickDialog = new MainClickDialog(ScheduleActivity.this,
+                        new OnButtonClickListener() {
+                            @Override
+                            public void onButtonClick() {
+                                Intent add = new Intent(ScheduleActivity.this, AddScheduleActivity.class);
+                                add.putExtra("scheduleBean", list.get(position));
+                                startActivity(add);
+                            }
+                        },
+                        new OnButtonClickListener() {
+                            @Override
+                            public void onButtonClick() {
+                                dao.delete(list.get(position));
+                                list.remove(position);
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
             }
         });
     }

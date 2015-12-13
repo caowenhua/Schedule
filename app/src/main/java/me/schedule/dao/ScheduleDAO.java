@@ -285,6 +285,7 @@ public class ScheduleDAO {
 
     public ScheduleBean getRecent(){
         Calendar calendar = Calendar.getInstance();
+        calendar.clear();
 //        int day = calendar.get(Calendar.DAY_OF_MONTH);
 //        int mouth = calendar.get(Calendar.MONTH) + 1;
 //        int year = calendar.get(Calendar.YEAR);
@@ -377,10 +378,11 @@ public class ScheduleDAO {
                     }
                 }
             }
-        } catch (SQLException e) {
+            Log.e("minVlue", minValue + "<--minvalie");
+            Log.e("schedule", scheduleBean.toString());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("minVlue", minValue + "<--minvalie");
         return scheduleBean;
     }
 }

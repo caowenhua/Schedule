@@ -116,9 +116,18 @@ public class MouthCalenderView extends View {
             case MotionEvent.ACTION_UP:
                 int row = (int) ((event.getX() * 16 / getWidth()) + 1 ) / 2;
                 int column = (int) (event.getY() / eachWidth);
+
+                int columnCount = (dayCount - (8 - dayOfWeek)) / 7 + 1;
+                if((dayCount - (8 - dayOfWeek)) % 7 != 0){
+                    columnCount ++;
+                }
+
                 if(clickRow == row && clickColumn == column){
-                    if(onMouthCalenderListener != null){
-                        onMouthCalenderListener.onDayClick(year, mouth, getDayBySize(row, column, dayOfWeek));
+//                    Log.e("judge", column + "--" + row + "--" +columnCount);
+                    if(row <= 7 && row >= 1 && column >= 3 && column < 3 + columnCount){
+                        if(onMouthCalenderListener != null){
+                            onMouthCalenderListener.onDayClick(year, mouth+1, getDayBySize(row, column-3, dayOfWeek));
+                        }
                     }
                 }
                 if(row - clickRow >= 2 || column - clickColumn >= 2){
@@ -296,8 +305,18 @@ public class MouthCalenderView extends View {
 //        }
     }
 
-    private int getDayBySize(int row,int column, int dayOfWeek){
-        return row * 7 + column - dayOfWeek + 1;
+    private int getDayBySize(int column, int row, int dayOfWeek){
+        if(row == 0){
+            if(column < dayOfWeek){
+                return -1;
+            }
+        }
+        int tmp = row * 7 + column - dayOfWeek + 1;
+        if(tmp > dayCount){
+            return  -1;
+        }
+//        Log.e("Aaa", column + "***" + row + "***" + dayOfWeek + "***" + (row * 7 + column - dayOfWeek + 1));
+        return tmp;
     }
 
     public void setOnMouthCalenderListener(OnMouthCalenderListener onMouthCalenderListener) {

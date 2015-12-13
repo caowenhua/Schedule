@@ -51,5 +51,6 @@
         android:paddingTop="3dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:scrollbars="none"
         />
 </RelativeLayout>

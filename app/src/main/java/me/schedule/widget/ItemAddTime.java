@@ -149,9 +149,10 @@ public class ItemAddTime extends RelativeLayout implements View.OnClickListener 
                 if(cycle[i]){
                     if(isFirst){
                         cycleString = "每周" + getDayByIndex(i);
+                        isFirst = false;
                     }
                     else{
-                        cycleString = "," + getDayByIndex(i);
+                        cycleString = cycleString + "," + getDayByIndex(i);
                     }
                 }
             }
