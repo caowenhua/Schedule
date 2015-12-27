@@ -12,7 +12,7 @@ import java.util.Calendar;
  * Created by caowenhua on 2015/11/4.
  */
 @DatabaseTable(tableName = "tb_Schedule")
-public class ScheduleBean implements Serializable{
+public class ScheduleBean implements Serializable {
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(columnName = "name")
@@ -103,12 +103,11 @@ public class ScheduleBean implements Serializable{
         ScheduleBean bean;
         try {
             bean = (ScheduleBean) o;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
-        if(isAlarm == bean.isAlarm() && event == bean.getEvent() && detail.equals(bean.getDetail()) && remark.equals(bean.getRemark()) &&
-                name.equals(bean.getName()) && times.equals(bean.getTimes())){
+        if (isAlarm == bean.isAlarm() && event == bean.getEvent() && detail.equals(bean.getDetail()) && remark.equals(bean.getRemark()) &&
+                name.equals(bean.getName()) && times.equals(bean.getTimes())) {
             return true;
         }
         return false;
@@ -120,7 +119,7 @@ public class ScheduleBean implements Serializable{
                 ",remark:" + remark + ",detail" + detail;
     }
 
-    public long getRecentTime(){
+    public long getRecentTime() {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR);
         int min = calendar.get(Calendar.MINUTE);
@@ -128,58 +127,54 @@ public class ScheduleBean implements Serializable{
 
         long time = System.currentTimeMillis();
         long minValue = 0;
-        for (ScheduleTimeBean bean : times){
-            if(!bean.isCycle()){
+
+        for (ScheduleTimeBean bean : times) {
+            if (!bean.isCycle()) {
                 calendar.set(bean.getYear(), bean.getMouth() - 1, bean.getDay(), bean.getHour(), bean.getMinute());
                 long t = calendar.getTimeInMillis() - time;
-//                Log.e("----", t + "---" + calendar.getTimeInMillis() + "---" + time + "--");
-                if(minValue == 0 && t > 0){
+//                Log.e("----", t + "---" + calendar.getTimeInMillis() + "---" + time + "--" + name);
+                if (minValue == 0 && t > 0) {
+                    minValue = t;
+                } else if (t > 0 && t < minValue) {
                     minValue = t;
                 }
-                else if(t > 0 && t < minValue){
-                    minValue = t;
-                }
-            }
-            else{
+            } else {
                 long value = 0;
                 boolean[] days = bean.getDays();
                 for (int j = 0; j < 7; j++) {
-                    if(week + j > 6){
-                        if(days[week + j - 7]){
-                            if(j == 0){
-                                if(hour < bean.getHour()){
+                    if (week + j > 6) {
+                        if (days[week + j - 7]) {
+                            if (j == 0) {
+                                if (hour < bean.getHour()) {
                                     value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
                                     break;
                                 }
-                                if(hour == bean.getHour()){
-                                    if(min < bean.getMinute()){
+                                if (hour == bean.getHour()) {
+                                    if (min < bean.getMinute()) {
                                         value += (bean.getMinute() - min) * 60 * 1000;
                                         break;
                                     }
                                 }
-                            }
-                            else{
+                            } else {
                                 value += j * 24 * 60 * 60 * 1000;
                                 value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
                                 break;
                             }
                         }
-                    }
-                    else{
-                        if(days[week + j]){
-                            if(j == 0){
-                                if(hour < bean.getHour()){
+                    } else {
+                        if (days[week + j]) {
+                            if (j == 0) {
+                                if (hour < bean.getHour()) {
                                     value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
                                     break;
                                 }
-                                if(hour == bean.getHour()){
-                                    if(min < bean.getMinute()){
+                                if (hour == bean.getHour()) {
+                                    if (min < bean.getMinute()) {
                                         value += (bean.getMinute() - min) * 60 * 1000;
                                         break;
                                     }
                                 }
-                            }
-                            else{
+                            } else {
                                 value += j * 24 * 60 * 1000;
                                 value += (bean.getHour() - hour) * 60 * 60 * 1000 + (bean.getMinute() - min) * 60 * 1000;
                                 break;
@@ -187,10 +182,10 @@ public class ScheduleBean implements Serializable{
                         }
                     }
                 }
-                if(minValue == 0 && value > 0){
+//                Log.e("bean", value + "-----" + name);
+                if (minValue == 0 && value > 0) {
                     minValue = value;
-                }
-                else if(minValue > 0 && value < minValue){
+                } else if (minValue > 0 && value < minValue && value > 0) {
                     minValue = value;
                 }
             }

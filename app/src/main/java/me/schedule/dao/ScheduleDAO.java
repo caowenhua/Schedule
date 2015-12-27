@@ -371,7 +371,7 @@ public class ScheduleDAO {
                             minValue = value;
                             scheduleBean = tmp.get(i);
                         }
-                        else if(minValue > 0 && value < minValue){
+                        else if(minValue > 0 && value < minValue && value > 0){
                             minValue = value;
                             scheduleBean = tmp.get(i);
                         }

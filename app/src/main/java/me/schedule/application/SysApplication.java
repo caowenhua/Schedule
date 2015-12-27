@@ -40,6 +40,7 @@ public class SysApplication extends Application {
         ScheduleDAO dao = ScheduleDAO.getInstance(this);
         scheduleBean = dao.getRecent();
         if(scheduleBean != null){
+//            Log.e("recenttime","RecentTime:" +  scheduleBean.getRecentTime());
             handler.postDelayed(new RecentScheduleRunnable(), scheduleBean.getRecentTime());
         }
     }

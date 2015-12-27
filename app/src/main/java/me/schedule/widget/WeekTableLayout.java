@@ -21,7 +21,7 @@ public class WeekTableLayout extends ViewGroup {
     private int[] columnWidth;
     private int[] columnHeight;
     private int[] computeColumnHeight;
-    private ColumnGravity gravity;
+//    private ColumnGravity gravity;
 
 
     public WeekTableLayout(Context context) {
@@ -40,8 +40,8 @@ public class WeekTableLayout extends ViewGroup {
         viewList = new ArrayList<>();
         if(attrs != null){
             TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.WeekTableLayout);
-            columnCount = ta.getInt(R.attr.columnCount, 1);
-            gravity = getColumnGravity(ta.getInt(R.attr.columnGravity, 0));
+            columnCount = ta.getInt(R.styleable.WeekTableLayout_columnCount, 1);
+//            gravity = getColumnGravity(ta.getInt(R.attr.columnGravity, 0));
             ta.recycle();
         }
         else{
@@ -147,21 +147,31 @@ public class WeekTableLayout extends ViewGroup {
             }
 
             if(viewList.get(i).spanColumn == 1){
-                switch (gravity){
-                    case left:
-                        viewList.get(i).view.layout(getColumnX(viewList.get(i).column),
-                                computeColumnHeight[viewList.get(i).column],
-                                childWidth, childHeight);
-                        break;
-                    case center:
-                        break;
-                    case right:
-                        break;
-                }
+                viewList.get(i).view.layout(getColumnX(viewList.get(i).column),
+                        computeColumnHeight[viewList.get(i).column],
+                        childWidth, childHeight);
+//                switch (gravity){
+//                    case left:
+//                        viewList.get(i).view.layout(getColumnX(viewList.get(i).column),
+//                                computeColumnHeight[viewList.get(i).column],
+//                                childWidth, childHeight);
+//                        break;
+//                    case center:
+//                        break;
+//                    case right:
+//                        break;
+//                }
                 computeColumnHeight[viewList.get(i).column] += childHeight;
             }
             else{
-
+                int maxColumn = max(viewList.get(i).column, viewList.get(i).spanColumn);
+                viewList.get(i).view.layout(getColumnX(maxColumn),
+                        computeColumnHeight[maxColumn],
+                        childWidth, childHeight);
+                int h = computeColumnHeight[maxColumn] + childHeight;
+                for (int j = 0; j < viewList.get(i).spanColumn; j++) {
+                    computeColumnHeight[j + maxColumn] = h;
+                }
             }
 
         }
@@ -173,11 +183,11 @@ public class WeekTableLayout extends ViewGroup {
 
         if(w > 0){
             int totalWidth = 0;
-            for (int i = 0; i < columnWidth.length; i++) {
-                totalWidth += columnWidth[i];
-            }
+//            for (int i = 0; i < columnWidth.length; i++) {
+//                totalWidth += columnWidth[i];
+//            }
 
-            totalWidth = totalWidth - getPaddingLeft() - getPaddingRight();
+            totalWidth = w - getPaddingLeft() - getPaddingRight();
 
             for (int i = 0; i < columnWidth.length; i++) {
                 columnWidth[i] = columnWidth[i]/totalWidth * w;
