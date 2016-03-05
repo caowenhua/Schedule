@@ -2,6 +2,7 @@ package me.schedule.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -131,8 +132,16 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
     }
 
     @Override
-    public void onTimeClick(int id, ScheduleTimeBean bean) {
+    public void onTimeClick(final int id, ScheduleTimeBean bean) {
         ChooseTimeDialog dialog = new ChooseTimeDialog(this, lltTime.getItemById(id).getScheduleTimeBean());
+        dialog.setOnTimeChooseListener(new OnTimeChooseListener() {
+            @Override
+            public void onChoose(String cycle, int hour, int min) {
+                Log.e("onTimeClick", cycle + "--" + hour + "--" + min);
+                if(lltTime.getItemById(id) != null)
+                    lltTime.getItemById(id).setData(cycle, hour + ":" + min);
+            }
+        });
     }
 
     @Override
@@ -141,8 +150,16 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
     }
 
     @Override
-    public void onDayClick(int id, ScheduleTimeBean bean) {
+    public void onDayClick(final int id, ScheduleTimeBean bean) {
         ChooseTimeDialog dialog = new ChooseTimeDialog(this, lltTime.getItemById(id).getScheduleTimeBean());
+        dialog.setOnTimeChooseListener(new OnTimeChooseListener() {
+            @Override
+            public void onChoose(String cycle, int hour, int min) {
+                Log.e("onDayClick", cycle + "--" + hour + "--" + min);
+                if(lltTime.getItemById(id) != null)
+                    lltTime.getItemById(id).setData(cycle, hour + ":" + min);
+            }
+        });
     }
 
     @Override
@@ -151,6 +168,7 @@ public class AddScheduleActivity extends Activity implements View.OnClickListene
         dialog.setOnTimeChooseListener(new OnTimeChooseListener() {
             @Override
             public void onChoose(String cycle, int hour, int min) {
+                Log.e("onTimeCreate", cycle + "--" + hour + "--" + min);
                 if(lltTime.getItemById(id) != null)
                     lltTime.getItemById(id).setData(cycle, hour + ":" + min);
             }

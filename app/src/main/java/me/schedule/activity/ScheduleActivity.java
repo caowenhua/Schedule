@@ -3,6 +3,7 @@ package me.schedule.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import me.schedule.bean.ScheduleBean;
 import me.schedule.dao.ScheduleDAO;
 import me.schedule.listener.OnButtonClickListener;
 import me.schedule.listener.OnDateChangeListener;
+import me.schedule.listener.OnTimeCommitListener;
 import me.schedule.widget.dialog.ChooseDayDialog;
 import me.schedule.widget.dialog.MainClickDialog;
 import me.schedule.widget.dialog.ScheduleMoreDialog;
@@ -32,6 +34,7 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
     private TextView tvDate;
     private ImageView imgMore;
     private ListView lvList;
+    private TextView tvTip;
 
     private MainListAdapter adapter;
     private List<ScheduleBean> list;
@@ -65,6 +68,9 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
 
         tvDate.setText(year + "." + mouth + "." + day);
         adapter = new MainListAdapter(list, this);
+        if (list.size() > 0){
+            tvTip.setVisibility(View.GONE);
+        }
         lvList.setAdapter(adapter);
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,6 +103,7 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
         tvDate = (TextView) findViewById(R.id.tv_date);
         imgMore = (ImageView) findViewById(R.id.img_more);
         lvList = (ListView) findViewById(R.id.lv_list);
+        tvTip = (TextView) findViewById(R.id.tv_tip);
 
         imgBack.setOnClickListener(this);
         imgMore.setOnClickListener(this);
@@ -141,6 +148,12 @@ public class ScheduleActivity extends Activity implements View.OnClickListener{
                     ScheduleActivity.this.mouth = mouth;
                     ScheduleActivity.this.day = day;
                     tvDate.setText(year + "." + mouth + "." + day);
+                }
+            });
+            chooseDayDialog.setOnTimeCommitListener(new OnTimeCommitListener() {
+                @Override
+                public void onCommitTime() {
+                    Log.e("sssssssss", "sssssssssssssssssss");
                     list.clear();
                     ScheduleDAO dao = ScheduleDAO.getInstance(ScheduleActivity.this);
                     list.addAll(dao.getDay(year, mouth, day));

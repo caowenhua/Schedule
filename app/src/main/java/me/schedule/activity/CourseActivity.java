@@ -52,6 +52,8 @@ public class CourseActivity extends Activity implements View.OnClickListener, On
         CourseDAO dao = new CourseDAO(this);
         list = dao.getAll();
         viewCoursetable.setCourseBeanList(list);
+
+        imgSetting.setVisibility(View.GONE);
     }
 
     @Override

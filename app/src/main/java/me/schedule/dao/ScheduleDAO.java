@@ -379,7 +379,7 @@ public class ScheduleDAO {
                 }
             }
             Log.e("minVlue", minValue + "<--minvalie");
-            Log.e("schedule", scheduleBean.toString());
+            Log.e("schedule", scheduleBean != null ? scheduleBean.toString() : null);
         } catch (Exception e) {
             e.printStackTrace();
         }

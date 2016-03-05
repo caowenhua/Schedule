@@ -201,6 +201,39 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
                 buttons[i].setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.bg_a1_circle));
             }
         }
+        initTime();
+    }
+
+    private void initTime(){
+        if (scheduleTimeBean.getYear() >= 2015 && scheduleTimeBean.getYear() <= 2099) {
+            wheel_year.setCurrentItem(scheduleTimeBean.getYear() - 2015);
+        } else {
+            wheel_year.setCurrentItem(1);
+        }
+
+        if (scheduleTimeBean.getMouth() >= 1 && scheduleTimeBean.getYear() <= 12) {
+            wheel_mouth.setCurrentItem(scheduleTimeBean.getMouth() - 1);
+        } else {
+            wheel_mouth.setCurrentItem(0);
+        }
+
+        if (scheduleTimeBean.getDay() >= 1 && scheduleTimeBean.getDay() <= 31) {
+            wheel_day.setCurrentItem(scheduleTimeBean.getDay() - 1);
+        } else {
+            wheel_day.setCurrentItem(0);
+        }
+
+        if (scheduleTimeBean.getHour() >= 0 && scheduleTimeBean.getDay() <= 23) {
+            wheel_hour.setCurrentItem(scheduleTimeBean.getHour());
+        } else {
+            wheel_hour.setCurrentItem(0);
+        }
+
+        if (scheduleTimeBean.getMinute() >= 0 && scheduleTimeBean.getMinute() <= 59) {
+            wheel_min.setCurrentItem(scheduleTimeBean.getMinute());
+        } else {
+            wheel_min.setCurrentItem(0);
+        }
     }
 
     @Override
@@ -211,6 +244,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
                 break;
             case R.id.btn_commit:
                 dismiss();
+                callBackChoose();
                 break;
             case R.id.btn_1:
                 refreshButton(0);
@@ -341,6 +375,7 @@ public class ChooseTimeDialog extends BaseDialog implements View.OnClickListener
             for (int i = 0; i < cycle.length; i++) {
                 if(cycle[i]){
                     if(isFirst){
+                        isFirst = false;
                         cycleString = cycleString + "每周" + getDayByIndex(i);
                     }
                     else{

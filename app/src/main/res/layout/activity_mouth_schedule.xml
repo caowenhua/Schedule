@@ -27,6 +27,7 @@
             android:textSize="@dimen/text_xl"
             android:textColor="@color/white"
             android:id="@+id/tv_date"
+            android:visibility="gone"
             />
 
     </RelativeLayout>

@@ -27,6 +27,16 @@ public class ScheduleMoreDialog extends BaseDialog implements View.OnClickListen
         this.addListener = addListener;
     }
 
+    public ScheduleMoreDialog(Context context, OnButtonClickListener listener, OnButtonClickListener delListener
+            , OnButtonClickListener addListener,boolean isWeek) {
+        super(context);
+
+        this.listener = listener;
+        this.delListener = delListener;
+        this.addListener = addListener;
+        tvWeek.setText("按日查看");
+    }
+
     @Override
     protected int setLayout() {
         return R.layout.dialog_schedule_more;

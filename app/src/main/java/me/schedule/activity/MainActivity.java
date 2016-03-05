@@ -92,6 +92,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         imgSetting.setOnClickListener(this);
         imgSchedule.setOnClickListener(this);
         imgCourse.setOnClickListener(this);
+
+        imgSetting.setVisibility(View.GONE);
+        imgTick.setVisibility(View.GONE);
     }
 
 
@@ -99,12 +102,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_setting:
-                Intent setting = new Intent(this, SettingActivity.class);
-                startActivity(setting);
+//                Intent setting = new Intent(this, SettingActivity.class);
+//                startActivity(setting);
                 break;
             case R.id.img_tick:
-                Intent testing = new Intent(this, TestActivity.class);
-                startActivity(testing);
+//                Intent testing = new Intent(this, TestActivity.class);
+//                startActivity(testing);
                 break;
             case R.id.img_schedule:
                 Intent schedule = new Intent(this, ScheduleActivity.class);

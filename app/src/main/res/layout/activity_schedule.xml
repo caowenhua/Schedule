@@ -38,6 +38,15 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/tv_tip"
+        android:text="无数据，请添加"
+        android:textSize="@dimen/text_xl"
+        android:textColor="@color/text_deep"
+        />
 
     <ListView
         android:layout_width="match_parent"

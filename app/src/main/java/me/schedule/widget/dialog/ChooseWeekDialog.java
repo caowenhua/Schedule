@@ -5,12 +5,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import java.util.Calendar;
-
 import me.schedule.R;
 import me.schedule.base.BaseDialog;
-import me.schedule.listener.OnDateChangeListener;
 import me.schedule.listener.OnTimeCommitListener;
+import me.schedule.listener.OnWeekChangeListener;
 import me.schedule.util.ScreenUtils;
 import me.schedule.widget.wheel.DayWheelAdapter;
 import me.schedule.widget.wheel.IntegerWheelAdapter;
@@ -18,49 +16,48 @@ import me.schedule.widget.wheel.OnWheelChangedListener;
 import me.schedule.widget.wheel.WheelView;
 
 /**
- * Created by caowenhua on 2015/12/3.
+ * Created by caowenhua on 2016/2/6.
  */
-public class ChooseDayDialog extends BaseDialog implements View.OnClickListener {
-
+public class ChooseWeekDialog extends BaseDialog implements View.OnClickListener{
     private ImageView img_x;
     private WheelView wheel_year;
     private WheelView wheel_mouth;
-    private WheelView wheel_day;
+    private WheelView wheel_firstday;
+    private WheelView wheel_lastday;
     private Button btn_commit;
 
     private IntegerWheelAdapter yearAdapter;
     private DayWheelAdapter dayAdapter;
+    private DayWheelAdapter dayAdapter2;
     private IntegerWheelAdapter mouthAdapter;
 
-    private OnDateChangeListener onDateChangeListener;
+    private OnWeekChangeListener onWeekChangeListener;
     private OnTimeCommitListener onTimeCommitListener;
 
     private int year;
     private int mouth;
-    private int day;
+    private int firstday;
+    private int lastday;
 
-    public ChooseDayDialog(Context context, int year, int mouth, int day) {
+    public ChooseWeekDialog(Context context, int year, int mouth, int firstday, int lastday) {
         super(context);
         this.year = year;
         this.mouth = mouth;
-        this.day = day;
+        this.firstday = firstday;
+        this.lastday = lastday;
 
         setupAdapter();
     }
 
-    public ChooseDayDialog(Context context) {
-        super(context);
-        init();
-    }
-
     @Override
     protected int setLayout() {
-        return R.layout.dialog_choose_day;
+        return R.layout.dialog_choose_week;
     }
 
     @Override
     protected void findView() {
-        wheel_day = findViewByID(R.id.wheel_day);
+        wheel_firstday = findViewByID(R.id.wheel_firstday);
+        wheel_lastday = findViewByID(R.id.wheel_lastday);
         wheel_year = findViewByID(R.id.wheel_year);
         wheel_mouth = findViewByID(R.id.wheel_mouth);
         img_x = findViewByID(R.id.img_x);
@@ -71,16 +68,6 @@ public class ChooseDayDialog extends BaseDialog implements View.OnClickListener 
     protected void initData() {
         img_x.setOnClickListener(this);
         btn_commit.setOnClickListener(this);
-    }
-
-    private void init(){
-        Calendar calendar = Calendar.getInstance();
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        mouth = calendar.get(Calendar.MONTH) + 1;
-        year = calendar.get(Calendar.YEAR);
-
-        setupAdapter();
-
     }
 
     private void setupAdapter() {
@@ -98,9 +85,10 @@ public class ChooseDayDialog extends BaseDialog implements View.OnClickListener 
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
                 year = yearAdapter.getIndex(newValue);
                 dayAdapter.refreshData(year, mouth);
-                wheel_day.invalidateLayouts();
-                wheel_day.invalidate();
-                wheel_day.setCurrentItem(0);
+                wheel_firstday.invalidateLayouts();
+                wheel_firstday.invalidate();
+                wheel_lastday.invalidateLayouts();
+                wheel_lastday.invalidate();
                 callBackChoose();
             }
         });
@@ -117,24 +105,40 @@ public class ChooseDayDialog extends BaseDialog implements View.OnClickListener 
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
                 mouth = mouthAdapter.getIndex(newValue);
                 dayAdapter.refreshData(year, mouth);
-                wheel_day.invalidateLayouts();
-                wheel_day.invalidate();
-                wheel_day.setCurrentItem(0);
+                wheel_firstday.invalidateLayouts();
+                wheel_firstday.invalidate();
+                wheel_lastday.invalidateLayouts();
+                wheel_lastday.invalidate();
                 callBackChoose();
             }
         });
 
         dayAdapter = new DayWheelAdapter(year, mouth);
-        wheel_day.setAdapter(dayAdapter);
-        wheel_day.setLabel("日");
-        wheel_day.setCyclic(true);
-        wheel_day.setVisibleItems(5);
-        wheel_day.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
-        wheel_day.setCurrentItem(day - 1);
-        wheel_day.addChangingListener(new OnWheelChangedListener() {
+        wheel_firstday.setAdapter(dayAdapter);
+        wheel_firstday.setLabel("日");
+        wheel_firstday.setCyclic(true);
+        wheel_firstday.setVisibleItems(5);
+        wheel_firstday.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_firstday.setCurrentItem(firstday - 1);
+        wheel_firstday.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                day = dayAdapter.getIndex(newValue);
+                firstday = dayAdapter.getIndex(newValue);
+                callBackChoose();
+            }
+        });
+
+        dayAdapter2 = new DayWheelAdapter(year, mouth);
+        wheel_lastday.setAdapter(dayAdapter2);
+        wheel_lastday.setLabel("日");
+        wheel_lastday.setCyclic(true);
+        wheel_lastday.setVisibleItems(5);
+        wheel_lastday.TEXT_SIZE = ScreenUtils.instance(getContext()).dip2px(100)/5;
+        wheel_lastday.setCurrentItem(lastday - 1);
+        wheel_lastday.addChangingListener(new OnWheelChangedListener() {
+            @Override
+            public void onChanged(WheelView wheel, int oldValue, int newValue) {
+                lastday = dayAdapter.getIndex(newValue);
                 callBackChoose();
             }
         });
@@ -167,13 +171,16 @@ public class ChooseDayDialog extends BaseDialog implements View.OnClickListener 
     }
 
     private void callBackChoose(){
-        if(onDateChangeListener != null){
-            onDateChangeListener.OnDateChange(year, mouth, day);
+        if(onWeekChangeListener != null){
+            int f,l;
+            l = firstday > lastday ? firstday : lastday;
+            f = firstday > lastday ? lastday : firstday;
+            onWeekChangeListener.onWeekChange(year, mouth, f, l);
         }
     }
 
-    public void setOnDateChangeListener(OnDateChangeListener onDateChangeListener) {
-        this.onDateChangeListener = onDateChangeListener;
+    public void setOnWeekChangeListener(OnWeekChangeListener onWeekChangeListener) {
+        this.onWeekChangeListener = onWeekChangeListener;
     }
 
     public void setOnTimeCommitListener(OnTimeCommitListener onTimeCommitListener) {

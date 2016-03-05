@@ -38,7 +38,7 @@ public class MouthScheduleActivity extends Activity implements View.OnClickListe
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int mouth = calendar.get(Calendar.MONTH);
-        tvDate.setText(year + "." + (mouth+1));
+//        tvDate.setText(year + "." + (mouth+1));
         dao = ScheduleDAO.getInstance(this);
         list = dao.getMouthEvent(year, mouth+1);
         viewMouth.setData(list);
@@ -76,7 +76,7 @@ public class MouthScheduleActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onMouthChange(int year, int mouth) {
-        tvDate.setText(year + "." + (mouth+1));
+//        tvDate.setText(year + "." + (mouth+1));
         list = dao.getMouthEvent(year, mouth+1);
         viewMouth.setData(list);
     }
